@@ -1,0 +1,11 @@
+# Project rules
+- Read docs/PRD.md before any task. Work on one requirement (R-number) at a time.
+- Stack: Python 3.11 for the engine and experiments; Next.js static export for the site in /site.
+- Free services only: Groq or Gemini free tiers, local Ollama, local embeddings. No paid APIs, databases or hosting.
+- Every model call goes through llm.py, which caches each call on disk by a hash of its input.
+- Long runs must stop cleanly at the daily quota and resume from where they stopped.
+- Tests use pytest and a fake model client. Tests never call a real model.
+- Never read, print or commit .env. Never hard-code keys. The repo is public.
+- The website never calls a model. It only reads JSON files in /site/public/data.
+- After each change: run the tests, then explain what changed in plain language.
+- Never invent numbers in README, RESULTS.md or write-ups. Quote them from results files.
