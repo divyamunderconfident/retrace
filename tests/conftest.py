@@ -17,7 +17,7 @@ class FakeLLM:
         reply = self.replies.pop(0)
         if isinstance(reply, Exception):
             raise reply
-        return {"choices": [{"message": reply}], "usage": {"prompt_tokens": 1, "completion_tokens": 1}}
+        return {"choices": [{"message": reply}], "usage": {"prompt_tokens": 1, "completion_tokens": 1, "total_tokens": 2}}
 
 
 @pytest.fixture(autouse=True)
