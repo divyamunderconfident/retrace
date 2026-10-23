@@ -28,6 +28,7 @@ def test_records_every_model_and_tool_step_in_order(fake_llm, db):
     steps = json.loads(export_run(run_id, db=db))["steps"]
     assert [(s["index"], s["type"], s["name"]) for s in steps] == [
         (0, "model", "groq/m"), (1, "tool", "calculator"), (2, "model", "groq/m")]
+    assert {s["source"] for s in steps} == {"live"}
 
     model, tool, final = steps
     assert model["input"]["model"] == "groq/m"
