@@ -25,6 +25,15 @@ class QuotaExceeded(Exception):
     """The provider returned 429. Stop the run; re-running resumes from the cache."""
 
 
+def load_env(path=".env"):
+    """Load KEY=value lines into the environment without overriding what is already set. Never prints values."""
+    if Path(path).exists():
+        for line in Path(path).read_text(encoding="utf-8").splitlines():
+            name, sep, value = line.partition("=")
+            if sep and not line.lstrip().startswith("#"):
+                os.environ.setdefault(name.strip(), value.strip().strip("'\""))
+
+
 def _redact(text):
     """Remove API keys from text that may be shown or logged; the repo and its logs are public."""
     for _, key_var in PROVIDERS.values():

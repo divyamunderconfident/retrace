@@ -13,12 +13,7 @@ from retrace import config, llm  # noqa: E402
 MODELS = {"GROQ_API_KEY": config.GROQ_MODEL, "GEMINI_API_KEY": config.GEMINI_MODEL}
 MESSAGES = [{"role": "user", "content": "Reply with exactly one word: hello"}]
 
-# Load KEY=value lines into the environment. Values are never printed.
-if Path(".env").exists():
-    for line in Path(".env").read_text(encoding="utf-8").splitlines():
-        name, sep, value = line.partition("=")
-        if sep and not line.lstrip().startswith("#"):
-            os.environ.setdefault(name.strip(), value.strip().strip("'\""))
+llm.load_env()
 
 for key_var, model in MODELS.items():
     if not os.environ.get(key_var):
