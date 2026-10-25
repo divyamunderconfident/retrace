@@ -27,7 +27,7 @@ export function Json({ value, className = "" }: { value: unknown; className?: st
 
 export function Stat({ label, value, note }: { label: string; value: string; note?: string }) {
   return (
-    <div className="rounded border border-zinc-800 bg-zinc-900/50 p-4">
+    <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 transition-colors hover:border-zinc-700">
       <div className="text-xs uppercase tracking-wide text-zinc-500">{label}</div>
       <div className="mt-1 font-mono text-2xl text-zinc-100">{value}</div>
       {note && <div className="mt-1 text-xs text-zinc-400">{note}</div>}
@@ -37,8 +37,8 @@ export function Stat({ label, value, note }: { label: string; value: string; not
 
 export function H1({ children, sub }: { children: React.ReactNode; sub?: React.ReactNode }) {
   return (
-    <div className="mb-5">
-      <h1 className="text-lg font-semibold text-zinc-100">{children}</h1>
+    <div className="rise mb-6">
+      <h1 className="text-xl font-semibold tracking-tight text-zinc-50 sm:text-2xl">{children}</h1>
       {sub && <p className="mt-1 text-zinc-400">{sub}</p>}
     </div>
   );

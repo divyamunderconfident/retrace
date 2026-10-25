@@ -26,6 +26,11 @@ function show(value: unknown) {
   return typeof value === "string" ? value : JSON.stringify(value, null, 2);
 }
 
+export async function generateMetadata({ params }: PageProps<"/diffs/[id]">) {
+  const { id } = await params;
+  return { title: `Diff: ${id}` };
+}
+
 export default async function DiffPage({ params }: PageProps<"/diffs/[id]">) {
   const { id } = await params;
   const meta = readData<Index>("index.json").diffs.find((d) => d.id === id)!;
@@ -76,7 +81,7 @@ export default async function DiffPage({ params }: PageProps<"/diffs/[id]">) {
       <section className="mb-6">
         <h2 className="mb-2 text-xs uppercase tracking-wide text-zinc-500">Steps side by side</h2>
         <div className="overflow-x-auto rounded border border-zinc-800">
-          <table className="w-full table-fixed text-left">
+          <table className="w-full min-w-[640px] table-fixed text-left">
             <thead className="bg-zinc-900 text-xs text-zinc-400">
               <tr>
                 <th className="w-12 px-3 py-2">#</th>

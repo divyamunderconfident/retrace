@@ -9,6 +9,11 @@ export function generateStaticParams() {
   return readData<Index>("index.json").runs.map((r) => ({ id: r.id }));
 }
 
+export async function generateMetadata({ params }: PageProps<"/runs/[id]">) {
+  const { id } = await params;
+  return { title: `Run ${id.slice(0, 8)}` };
+}
+
 export default async function RunPage({ params }: PageProps<"/runs/[id]">) {
   const { id } = await params;
   const meta = readData<Index>("index.json").runs.find((r) => r.id === id)!;

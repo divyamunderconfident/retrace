@@ -66,8 +66,8 @@ export function RunView({ run }: { run: Run }) {
   const previousMessageCount = previousModel ? ((previousModel.input.messages as Message[])?.length ?? 0) : 0;
 
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-      <ol className="space-y-1">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
+      <ol className="min-w-0 space-y-1">
         {run.steps.map((s) => (
           <li key={s.index}>
             <button

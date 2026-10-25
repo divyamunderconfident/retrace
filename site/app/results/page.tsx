@@ -5,6 +5,8 @@ function Mark({ ok }: { ok: boolean }) {
   return <span className={ok ? "text-emerald-400" : "text-rose-400"}>{ok ? "yes" : "no"}</span>;
 }
 
+export const metadata = { title: "Results" };
+
 export default function ResultsPage() {
   const { summary: s, mutations, root_cause } = readData<Results>("results.json");
   const b = Object.fromEntries(root_cause.map((r) => [r.id, r]));
