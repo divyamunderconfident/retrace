@@ -1,0 +1,102 @@
+{
+  "runs": [
+    {
+      "id": "6c96c33779df48c6be18770015452635",
+      "label": "wrong-arg-calculator (correct)",
+      "role": "correct",
+      "mutation": "wrong-arg-calculator",
+      "question": "How much more does a Cargo Lite cost than a Commuter?",
+      "model": "groq/openai/gpt-oss-20b",
+      "steps": 5,
+      "tokens": 1800,
+      "answer": "$1,750 more."
+    },
+    {
+      "id": "51db937d712b4721b9c242f8f890ec95",
+      "label": "wrong-arg-calculator (broken)",
+      "role": "broken",
+      "mutation": "wrong-arg-calculator",
+      "question": "How much more does a Cargo Lite cost than a Commuter?",
+      "model": "groq/openai/gpt-oss-20b",
+      "steps": 5,
+      "tokens": 1901,
+      "answer": "$1,750."
+    },
+    {
+      "id": "894374ef9e1d4cf9abbe968dd795f1d0",
+      "label": "truncated-tool-results (correct)",
+      "role": "correct",
+      "mutation": "truncated-tool-results",
+      "question": "What will a Ridgeline cost after the March 2026 price change?",
+      "model": "groq/openai/gpt-oss-20b",
+      "steps": 5,
+      "tokens": 1733,
+      "answer": "$3,024."
+    },
+    {
+      "id": "60f9adbbc9bb446c8f4409bffe7b91ac",
+      "label": "truncated-tool-results (broken)",
+      "role": "broken",
+      "mutation": "truncated-tool-results",
+      "question": "What will a Ridgeline cost after the March 2026 price change?",
+      "model": "groq/openai/gpt-oss-20b",
+      "steps": 16,
+      "tokens": 4746,
+      "answer": ""
+    },
+    {
+      "id": "effc3f4e56234e91a7b25810ef577b20",
+      "label": "swallowed-search-error (correct)",
+      "role": "correct",
+      "mutation": "swallowed-search-error",
+      "question": "How much more does a Cargo Lite cost than a Commuter?",
+      "model": "groq/openai/gpt-oss-20b",
+      "steps": 5,
+      "tokens": 1800,
+      "answer": "$1,750 more."
+    },
+    {
+      "id": "d7b961b81e234608a685b91eadb54729",
+      "label": "swallowed-search-error (broken)",
+      "role": "broken",
+      "mutation": "swallowed-search-error",
+      "question": "How much more does a Cargo Lite cost than a Commuter?",
+      "model": "groq/openai/gpt-oss-20b",
+      "steps": 11,
+      "tokens": 2930,
+      "answer": "I couldn\u2019t find any price information for the Cargo\u202fLite or the Commuter in the documents. If you have a specific source or page, let me know and I can check that."
+    }
+  ],
+  "diffs": [
+    {
+      "id": "wrong-arg-calculator",
+      "type": "wrong tool argument",
+      "description": "The agent passes the calculator an expression with '-' turned into '+'.",
+      "run_a": "6c96c33779df48c6be18770015452635",
+      "run_b": "51db937d712b4721b9c242f8f890ec95",
+      "mutated_step": 3,
+      "first_divergence": 3,
+      "kind": "input"
+    },
+    {
+      "id": "truncated-tool-results",
+      "type": "truncated context",
+      "description": "Tool results in the history are cut to their first 60 characters.",
+      "run_a": "894374ef9e1d4cf9abbe968dd795f1d0",
+      "run_b": "60f9adbbc9bb446c8f4409bffe7b91ac",
+      "mutated_step": 2,
+      "first_divergence": 2,
+      "kind": "input"
+    },
+    {
+      "id": "swallowed-search-error",
+      "type": "swallowed tool error",
+      "description": "search_docs fails internally and returns an empty string instead of an error.",
+      "run_a": "effc3f4e56234e91a7b25810ef577b20",
+      "run_b": "d7b961b81e234608a685b91eadb54729",
+      "mutated_step": 1,
+      "first_divergence": 1,
+      "kind": "output"
+    }
+  ]
+}

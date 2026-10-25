@@ -1,0 +1,410 @@
+{
+  "summary": {
+    "mutations": 10,
+    "fired": 10,
+    "a_matches": 10,
+    "analyst_model": "gemini/gemini-3.5-flash-lite",
+    "agent_model": "groq/openai/gpt-oss-20b",
+    "b_scored": 10,
+    "b_raw_logs_step_correct": 9,
+    "b_raw_logs_type_correct": 8,
+    "b_raw_logs_correct": 8,
+    "b_diff_report_step_correct": 10,
+    "b_diff_report_type_correct": 8,
+    "b_diff_report_correct": 8
+  },
+  "mutations": [
+    {
+      "id": "wrong-arg-calculator",
+      "type": "wrong tool argument",
+      "question": "How much more does a Cargo Lite cost than a Commuter?",
+      "description": "The agent passes the calculator an expression with '-' turned into '+'.",
+      "correct_run": "6c96c33779df48c6be18770015452635",
+      "broken_run": "51db937d712b4721b9c242f8f890ec95",
+      "correct_answer": "$1,750 more.",
+      "broken_answer": "$1,750.",
+      "mutated_step": 3,
+      "first_divergence": 3,
+      "divergence_kind": "input",
+      "match": true,
+      "tokens_correct": 1800,
+      "tokens_broken": 1901
+    },
+    {
+      "id": "wrong-arg-search",
+      "type": "wrong tool argument",
+      "question": "Why were Ridgeline bikes recalled in 2025, and which battery supplier does Brightwater use now?",
+      "description": "The agent passes search_docs only the first word of the query.",
+      "correct_run": "8d850f38a1534c70a4751912e99bdfe4",
+      "broken_run": "f0ceaf7d0f884ebb8767d41de3327ab8",
+      "correct_answer": "The 2025 recall of 1,340 Ridgeline bikes was triggered because battery cells supplied by VoltCore could overheat during fast charging. After the recall, Brightwater switched its battery supplier to Nordcell.",
+      "broken_answer": "The 2025 recall was triggered because the VoltCore\u2011supplied battery cells could overheat during fast charging. Brightwater now sources its battery cells from **Nordcell**.",
+      "mutated_step": 1,
+      "first_divergence": 1,
+      "divergence_kind": "input",
+      "match": true,
+      "tokens_correct": 3620,
+      "tokens_broken": 2165
+    },
+    {
+      "id": "truncated-drop-question",
+      "type": "truncated context",
+      "question": "What was Brightwater Cycles' total revenue in 2025?",
+      "description": "Once the history has more than 4 messages, the user's question is dropped from it.",
+      "correct_run": "0453f6e55433429eaf73cc097a2c66a4",
+      "broken_run": "6d36a247b1174fe2b3775018182168d2",
+      "correct_answer": "Brightwater Cycles\u2019 total revenue in 2025 was **$21.2\u202fmillion**.",
+      "broken_answer": "Total revenue for 2025 was $21.2\u202fmillion.",
+      "mutated_step": 4,
+      "first_divergence": 4,
+      "divergence_kind": "input",
+      "match": true,
+      "tokens_correct": 5109,
+      "tokens_broken": 4973
+    },
+    {
+      "id": "truncated-tool-results",
+      "type": "truncated context",
+      "question": "What will a Ridgeline cost after the March 2026 price change?",
+      "description": "Tool results in the history are cut to their first 60 characters.",
+      "correct_run": "894374ef9e1d4cf9abbe968dd795f1d0",
+      "broken_run": "60f9adbbc9bb446c8f4409bffe7b91ac",
+      "correct_answer": "$3,024.",
+      "broken_answer": "Stopped after 8 model calls without a final answer.",
+      "mutated_step": 2,
+      "first_divergence": 2,
+      "divergence_kind": "input",
+      "match": true,
+      "tokens_correct": 1733,
+      "tokens_broken": 4746
+    },
+    {
+      "id": "vague-search-description",
+      "type": "vague tool description",
+      "question": "Why were Ridgeline bikes recalled in 2025, and which battery supplier does Brightwater use now?",
+      "description": "search_docs is described as 'Does a lookup.' and its parameter as 'input'.",
+      "correct_run": "ec54db7a6b424c94a81698ce19b83a43",
+      "broken_run": "349b17db74664592bbd6c82548dc6969",
+      "correct_answer": "The 2025 recall of 1,340 Ridgeline bikes was triggered because battery cells supplied by VoltCore could overheat during fast charging. After the recall, Brightwater switched its battery supplier to Nordcell.",
+      "broken_answer": "The 2025 recall of 1,340 Ridgeline bikes was triggered because battery cells supplied by VoltCore could overheat during fast charging. After the recall, Brightwater switched its battery supplier to Nordcell.",
+      "mutated_step": 0,
+      "first_divergence": 0,
+      "divergence_kind": "input",
+      "match": true,
+      "tokens_correct": 3620,
+      "tokens_broken": 3596
+    },
+    {
+      "id": "vague-calculator-description",
+      "type": "vague tool description",
+      "question": "What will a Ridgeline cost after the March 2026 price change?",
+      "description": "calculator is described as 'Utility.' and its parameter as 'input'.",
+      "correct_run": "ee3f601408164a9a9eca399040d235f6",
+      "broken_run": "393972d5adae4b5bac24862c5c4f4c63",
+      "correct_answer": "$3,024.",
+      "broken_answer": "The Ridgeline will cost $3,024 after the March\u202f2026 price change.",
+      "mutated_step": 0,
+      "first_divergence": 0,
+      "divergence_kind": "input",
+      "match": true,
+      "tokens_correct": 1733,
+      "tokens_broken": 1728
+    },
+    {
+      "id": "contradiction-no-tools",
+      "type": "contradicting instruction",
+      "question": "What was Brightwater Cycles' total revenue in 2025?",
+      "description": "The system prompt adds: 'Never call tools. Answer immediately from your own knowledge.'",
+      "correct_run": "bb3b755ccad54bef9f0dcb62bce523b4",
+      "broken_run": "2286440f43564dc39faacc22ffe40c9b",
+      "correct_answer": "Brightwater Cycles\u2019 total revenue in 2025 was **$21.2\u202fmillion**.",
+      "broken_answer": "Brightwater Cycles\u2019 total revenue for 2025 was **$21.2\u202fmillion**.",
+      "mutated_step": 0,
+      "first_divergence": 0,
+      "divergence_kind": "input",
+      "match": true,
+      "tokens_correct": 5109,
+      "tokens_broken": 5228
+    },
+    {
+      "id": "contradiction-no-calculator",
+      "type": "contradicting instruction",
+      "question": "What was revenue per employee at the end of 2025?",
+      "description": "The system prompt adds: 'Do not use the calculator; do all arithmetic in your head.'",
+      "correct_run": "4e4794ef83f743b48387001418a4f804",
+      "broken_run": "22acf535754f45bd80ddc798741d6b87",
+      "correct_answer": "Revenue per employee at the end of\u202f2025 was **$100,000**.",
+      "broken_answer": "$100,000 per employee.",
+      "mutated_step": 0,
+      "first_divergence": 0,
+      "divergence_kind": "input",
+      "match": true,
+      "tokens_correct": 6980,
+      "tokens_broken": 3857
+    },
+    {
+      "id": "swallowed-search-error",
+      "type": "swallowed tool error",
+      "question": "How much more does a Cargo Lite cost than a Commuter?",
+      "description": "search_docs fails internally and returns an empty string instead of an error.",
+      "correct_run": "effc3f4e56234e91a7b25810ef577b20",
+      "broken_run": "d7b961b81e234608a685b91eadb54729",
+      "correct_answer": "$1,750 more.",
+      "broken_answer": "I couldn\u2019t find any price information for the Cargo\u202fLite or the Commuter in the documents. If you have a specific source or page, let me know and I can check that.",
+      "mutated_step": 1,
+      "first_divergence": 1,
+      "divergence_kind": "output",
+      "match": true,
+      "tokens_correct": 1800,
+      "tokens_broken": 2930
+    },
+    {
+      "id": "swallowed-calculator-error",
+      "type": "swallowed tool error",
+      "question": "What will a Ridgeline cost after the March 2026 price change?",
+      "description": "calculator fails internally and returns an empty string instead of an error.",
+      "correct_run": "0b7eebe36d4b4dd49fbf7947d647edba",
+      "broken_run": "d3872ec5f30640938c0613ccc7b19966",
+      "correct_answer": "$3,024.",
+      "broken_answer": "The Ridgeline will cost **$3,024** after the March\u202f2026 price increase.",
+      "mutated_step": 3,
+      "first_divergence": 3,
+      "divergence_kind": "output",
+      "match": true,
+      "tokens_correct": 1733,
+      "tokens_broken": 1759
+    }
+  ],
+  "root_cause": [
+    {
+      "id": "wrong-arg-calculator",
+      "raw_logs": {
+        "answer": {
+          "step": 3,
+          "bug_type": "wrong tool argument",
+          "explanation": "The calculator tool in run b evaluated 3200 + 1450 instead of subtraction (3200 - 1450), producing the wrong arithmetic result."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      },
+      "diff_report": {
+        "answer": {
+          "step": 3,
+          "bug_type": "wrong tool argument",
+          "explanation": "The agent passed an incorrect addition operation instead of subtraction to the calculator tool."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "wrong-arg-search",
+      "raw_logs": {
+        "answer": {
+          "step": 3,
+          "bug_type": "swallowed tool error",
+          "explanation": "In step 3 of run b, the tool search_docs returns an empty or unexpected result due to a swallowed tool error or failure, causing the tool output to fallback to a different set of documents."
+        },
+        "step_correct": false,
+        "type_correct": false,
+        "correct": false
+      },
+      "diff_report": {
+        "answer": {
+          "step": 1,
+          "bug_type": "truncated context",
+          "explanation": "The query was truncated from a detailed search for Ridgeline bike recalls and battery suppliers down to just 'Ridgeline', leading to broader, less relevant search results and causing the agent run to fail early."
+        },
+        "step_correct": true,
+        "type_correct": false,
+        "correct": false
+      }
+    },
+    {
+      "id": "truncated-drop-question",
+      "raw_logs": {
+        "answer": {
+          "step": 4,
+          "bug_type": "truncated context",
+          "explanation": "In run b at step 4, the model's input context is truncated, missing the previous tool call and output history, which causes the agent to re-execute tool calls and loop unnecessarily."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      },
+      "diff_report": {
+        "answer": {
+          "step": 4,
+          "bug_type": "truncated context",
+          "explanation": "Run b drops the original user question in the message history, causing context loss for subsequent steps."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "truncated-tool-results",
+      "raw_logs": {
+        "answer": {
+          "step": 2,
+          "bug_type": "truncated context",
+          "explanation": "In step 2, the tool output was truncated, causing the agent to lose the full document text and loop indefinitely trying to re-read files."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      },
+      "diff_report": {
+        "answer": {
+          "step": 2,
+          "bug_type": "truncated context",
+          "explanation": "Run b received a truncated file content in the message input, forcing the model to search for the file again instead of proceeding with the calculation."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "vague-search-description",
+      "raw_logs": {
+        "answer": {
+          "step": 0,
+          "bug_type": "vague tool description",
+          "explanation": "The `search_docs` tool description in run b is changed to the vague 'Does a lookup.', which causes the agent to need more search steps and reasoning tokens than in run a."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      },
+      "diff_report": {
+        "answer": {
+          "step": 0,
+          "bug_type": "vague tool description",
+          "explanation": "Changing the tool and parameter descriptions to vague terms like 'Does a lookup' and 'input' causes the model to misunderstand the tool's purpose."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "vague-calculator-description",
+      "raw_logs": {
+        "answer": {
+          "step": 0,
+          "bug_type": "vague tool description",
+          "explanation": "The calculator tool description was changed to 'Utility.' in run b, making its purpose vague compared to run a."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      },
+      "diff_report": {
+        "answer": {
+          "step": 0,
+          "bug_type": "vague tool description",
+          "explanation": "The tool description and parameter descriptions were changed to vague terms ('Utility' and 'input'), impairing the model's ability to use the calculator tool correctly."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "contradiction-no-tools",
+      "raw_logs": {
+        "answer": {
+          "step": 0,
+          "bug_type": "contradicting instruction",
+          "explanation": "The system prompt contains a contradicting instruction telling the model to never call tools while simultaneously requiring it to use search_docs and calculator to answer questions."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      },
+      "diff_report": {
+        "answer": {
+          "step": 0,
+          "bug_type": "contradicting instruction",
+          "explanation": "The prompt contains conflicting instructions telling the model to use tools while simultaneously commanding it to never call tools."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "contradiction-no-calculator",
+      "raw_logs": {
+        "answer": {
+          "step": 0,
+          "bug_type": "contradicting instruction",
+          "explanation": "The system prompt includes a contradicting instruction telling the model not to use the calculator, which forces it to rely on mental math for complex arithmetic."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      },
+      "diff_report": {
+        "answer": {
+          "step": 0,
+          "bug_type": "contradicting instruction",
+          "explanation": "Adding an instruction to not use the calculator while the task requires arithmetic causes the agent to fail to compute the final answer."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      }
+    },
+    {
+      "id": "swallowed-search-error",
+      "raw_logs": {
+        "answer": {
+          "step": 1,
+          "bug_type": "vague tool description",
+          "explanation": "The tool description for search_docs is too vague for the search implementation to handle multi-keyword compound queries properly, returning empty results."
+        },
+        "step_correct": true,
+        "type_correct": false,
+        "correct": false
+      },
+      "diff_report": {
+        "answer": {
+          "step": 1,
+          "bug_type": "truncated context",
+          "explanation": "The output of search_docs was truncated, forcing the agent to repeatedly search the same documentation in subsequent steps."
+        },
+        "step_correct": true,
+        "type_correct": false,
+        "correct": false
+      }
+    },
+    {
+      "id": "swallowed-calculator-error",
+      "raw_logs": {
+        "answer": {
+          "step": 3,
+          "bug_type": "swallowed tool error",
+          "explanation": "The calculator tool returned an empty output string instead of the computed result, but the agent proceeded without handling the error."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      },
+      "diff_report": {
+        "answer": {
+          "step": 3,
+          "bug_type": "swallowed tool error",
+          "explanation": "The calculator tool returned an empty string instead of the result due to a swallowed execution error."
+        },
+        "step_correct": true,
+        "type_correct": true,
+        "correct": true
+      }
+    }
+  ]
+}

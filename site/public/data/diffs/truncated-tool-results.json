@@ -1,0 +1,75 @@
+{
+  "run_a": "894374ef9e1d4cf9abbe968dd795f1d0",
+  "run_b": "60f9adbbc9bb446c8f4409bffe7b91ac",
+  "steps_a": 5,
+  "steps_b": 16,
+  "first_divergence": 2,
+  "kind": "input",
+  "step_a": {
+    "index": 2,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "step_b": {
+    "index": 2,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "changes": [
+    {
+      "path": "input.messages[3].content",
+      "a": "[15-pricing-2026.md]\n# Price change, March 2026\nFrom 1 March 2026 the price of the Ridgeline rises by 8 percent, because Nordcell battery cells cost more than the old cells. The prices of the Commuter and the Cargo Lite do not change.\n\n\n[04-product-ridgeline.md]\n# Product: Ridgeline\nThe Ridgeline is an electric mountain bike. Price: $2,800. Motor: 500 W. Range: 80 km on one charge. Weight: 24 kg.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[18-roadmap-2026.md]\n# Product roadmap 2026\nThe Commuter 2 is planned for Q3 2026, with a range of 75 km. A folding model is being researched; it has no launch date.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n",
+      "b": "[15-pricing-2026.md]\n# Price change, March 2026\nFrom 1 March"
+    },
+    {
+      "path": "output.message.reasoning",
+      "a": "We have base price $2,800. 8% increase. Compute: 2800 * 1.08 = 3024. Use calculator.",
+      "b": "Open the file."
+    },
+    {
+      "path": "output.message.tool_calls[0].function.arguments",
+      "a": "{\"expression\":\"2800 * 1.08\"}",
+      "b": "{\"query\":\"15-pricing-2026.md\"}"
+    },
+    {
+      "path": "output.message.tool_calls[0].function.name",
+      "a": "calculator",
+      "b": "search_docs"
+    },
+    {
+      "path": "output.message.tool_calls[0].id",
+      "a": "fc_c1c9418b-c1e6-4ec9-ab25-d7bad8af2d93",
+      "b": "fc_f82789cd-802b-450c-aafb-3871c75f3f1c"
+    }
+  ],
+  "tokens": {
+    "a": 1733,
+    "b": 4746,
+    "delta": 3013
+  },
+  "cost_usd": {
+    "a": 0.0,
+    "b": 0.0,
+    "delta": 0.0
+  },
+  "after_a": [
+    "tool:calculator",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "after_b": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs"
+  ],
+  "report": "Run a: 894374ef9e1d4cf9abbe968dd795f1d0 (5 steps, 1733 tokens)\nRun b: 60f9adbbc9bb446c8f4409bffe7b91ac (16 steps, 4746 tokens)\nFirst divergence: step 2 (model groq/openai/gpt-oss-20b), input changed\n  input.messages[3].content: '[15-pricing-2026.md]\\n# Price change, March 2026\\nFrom 1 March 2026 the price of the Ridgeline rises by 8 percent, because Nordcell battery cells cost more than the old cells. The prices of the Commuter and the Cargo Lite do not change.\\n\\n\\n[04-product-ridgeline.md]\\n# Product: Ridgeline\\nThe Ridg... (1210 chars) -> '[15-pricing-2026.md]\\n# Price change, March 2026\\nFrom 1 March'\n  output.message.reasoning: 'We have base price $2,800. 8% increase. Compute: 2800 * 1.08 = 3024. Use calculator.' -> 'Open the file.'\n  output.message.tool_calls[0].function.arguments: '{\"expression\":\"2800 * 1.08\"}' -> '{\"query\":\"15-pricing-2026.md\"}'\n  output.message.tool_calls[0].function.name: 'calculator' -> 'search_docs'\n  output.message.tool_calls[0].id: 'fc_c1c9418b-c1e6-4ec9-ab25-d7bad8af2d93' -> 'fc_f82789cd-802b-450c-aafb-3871c75f3f1c'\nAfter the divergence, run a: tool:calculator, model:groq/openai/gpt-oss-20b\nAfter the divergence, run b: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs\nTokens: 1733 -> 4746 (+3013); cost: $0.0000 -> $0.0000 (+0.0000)"
+}
