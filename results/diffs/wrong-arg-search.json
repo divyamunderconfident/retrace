@@ -1,0 +1,53 @@
+{
+  "run_a": "8d850f38a1534c70a4751912e99bdfe4",
+  "run_b": "f0ceaf7d0f884ebb8767d41de3327ab8",
+  "steps_a": 7,
+  "steps_b": 5,
+  "first_divergence": 1,
+  "kind": "input",
+  "step_a": {
+    "index": 1,
+    "type": "tool",
+    "name": "search_docs"
+  },
+  "step_b": {
+    "index": 1,
+    "type": "tool",
+    "name": "search_docs"
+  },
+  "changes": [
+    {
+      "path": "input.query",
+      "a": "Ridgeline bikes recalled 2025 Brightwater Cycles battery supplier now",
+      "b": "Ridgeline"
+    },
+    {
+      "path": "output",
+      "a": "[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[13-warranty.md]\n# Warranty\nFrames are covered for 7 years. Batteries are covered for 2 years or 800 charge cycles, whichever comes first. Motors are covered for 3 years. Owners of recalled Ridgeline bikes had their battery warranty extended to 4 years.\n\n\n[20-competitors.md]\n# Competitors\nThe main competitors are Velora, which sells cheaper city bikes, and Summit E-Bikes, which sells premium mountain bikes. Brightwater's market share in its home region was about 11 percent in 2025.\n",
+      "b": "[04-product-ridgeline.md]\n# Product: Ridgeline\nThe Ridgeline is an electric mountain bike. Price: $2,800. Motor: 500 W. Range: 80 km on one charge. Weight: 24 kg.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[02-history.md]\n# Company history\nMaya Okafor and Tomasz Wren founded Brightwater Cycles in 2016 in a rented garage in Port Alder. The first bike, the Commuter, shipped in 2017. The Ridgeline followed in 2020 and the Cargo Lite in 2023. In 2024 the company opened a second factory in Lindqvist.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n"
+    }
+  ],
+  "tokens": {
+    "a": 3620,
+    "b": 2165,
+    "delta": -1455
+  },
+  "cost_usd": {
+    "a": 0.0,
+    "b": 0.0,
+    "delta": 0.0
+  },
+  "after_a": [
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "after_b": [
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "report": "Run a: 8d850f38a1534c70a4751912e99bdfe4 (7 steps, 3620 tokens)\nRun b: f0ceaf7d0f884ebb8767d41de3327ab8 (5 steps, 2165 tokens)\nFirst divergence: step 1 (tool search_docs), input changed\n  input.query: 'Ridgeline bikes recalled 2025 Brightwater Cycles battery supplier now' -> 'Ridgeline'\n  output: \"[11-recall-2025.md]\\n# Ridgeline recall, August 2025\\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement b... (1364 chars) -> '[04-product-ridgeline.md]\\n# Product: Ridgeline\\nThe Ridgeline is an electric mountain bike. Price: $2,800. Motor: 500 W. Range: 80 km on one charge. Weight: 24 kg.\\n\\n\\n[11-recall-2025.md]\\n# Ridgeline recall, August 2025\\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between Feb... (1337 chars)\nAfter the divergence, run a: model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b\nAfter the divergence, run b: model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b\nTokens: 3620 -> 2165 (-1455); cost: $0.0000 -> $0.0000 (+0.0000)"
+}

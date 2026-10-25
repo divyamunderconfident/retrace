@@ -1,0 +1,42 @@
+{
+  "run_a": "0b7eebe36d4b4dd49fbf7947d647edba",
+  "run_b": "d3872ec5f30640938c0613ccc7b19966",
+  "steps_a": 5,
+  "steps_b": 5,
+  "first_divergence": 3,
+  "kind": "output",
+  "step_a": {
+    "index": 3,
+    "type": "tool",
+    "name": "calculator"
+  },
+  "step_b": {
+    "index": 3,
+    "type": "tool",
+    "name": "calculator"
+  },
+  "changes": [
+    {
+      "path": "output",
+      "a": "3024.0",
+      "b": ""
+    }
+  ],
+  "tokens": {
+    "a": 1733,
+    "b": 1759,
+    "delta": 26
+  },
+  "cost_usd": {
+    "a": 0.0,
+    "b": 0.0,
+    "delta": 0.0
+  },
+  "after_a": [
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "after_b": [
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "report": "Run a: 0b7eebe36d4b4dd49fbf7947d647edba (5 steps, 1733 tokens)\nRun b: d3872ec5f30640938c0613ccc7b19966 (5 steps, 1759 tokens)\nFirst divergence: step 3 (tool calculator), output changed\n  output: '3024.0' -> ''\nAfter the divergence, run a: model:groq/openai/gpt-oss-20b\nAfter the divergence, run b: model:groq/openai/gpt-oss-20b\nTokens: 1733 -> 1759 (+26); cost: $0.0000 -> $0.0000 (+0.0000)"
+}

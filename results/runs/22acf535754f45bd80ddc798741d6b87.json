@@ -1,0 +1,586 @@
+{
+  "run_id": "22acf535754f45bd80ddc798741d6b87",
+  "steps": [
+    {
+      "index": 0,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short. Do not use the calculator; do all arithmetic in your head."
+          },
+          {
+            "role": "user",
+            "content": "What was revenue per employee at the end of 2025?"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "We need to answer: revenue per employee at the end of 2025. We must search docs. Use search_docs.",
+          "tool_calls": [
+            {
+              "id": "fc_8424f6c6-2502-4c7e-8ac1-8066be7437b7",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"revenue per employee end of 2025 Brightwater Cycles\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.397604421,
+          "prompt_tokens": 277,
+          "prompt_time": 0.013559543,
+          "completion_tokens": 61,
+          "completion_time": 0.063842801,
+          "total_tokens": 338,
+          "total_time": 0.077402344,
+          "completion_tokens_details": {
+            "reasoning_tokens": 26
+          }
+        },
+        "latency_ms": 1641,
+        "cached": true
+      },
+      "tokens": 338,
+      "latency_ms": 1,
+      "source": "live"
+    },
+    {
+      "index": 1,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "revenue per employee end of 2025 Brightwater Cycles"
+      },
+      "output": "[10-headcount.md]\n# Headcount\nAt the end of 2025 Brightwater Cycles had 212 employees: 130 in manufacturing, 34 in engineering, 28 in sales and support, and 20 in operations and administration. At the end of 2024 it had 168 employees.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[06-revenue-q1-2025.md]\n# Q1 2025 results\nRevenue in the first quarter of 2025 (January to March) was $4.2 million. The company sold 2,100 bikes in the quarter.\n",
+      "tokens": null,
+      "latency_ms": 10,
+      "source": "live"
+    },
+    {
+      "index": 2,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short. Do not use the calculator; do all arithmetic in your head."
+          },
+          {
+            "role": "user",
+            "content": "What was revenue per employee at the end of 2025?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to answer: revenue per employee at the end of 2025. We must search docs. Use search_docs.",
+            "tool_calls": [
+              {
+                "id": "fc_8424f6c6-2502-4c7e-8ac1-8066be7437b7",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"revenue per employee end of 2025 Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_8424f6c6-2502-4c7e-8ac1-8066be7437b7",
+            "content": "[10-headcount.md]\n# Headcount\nAt the end of 2025 Brightwater Cycles had 212 employees: 130 in manufacturing, 34 in engineering, 28 in sales and support, and 20 in operations and administration. At the end of 2024 it had 168 employees.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[06-revenue-q1-2025.md]\n# Q1 2025 results\nRevenue in the first quarter of 2025 (January to March) was $4.2 million. The company sold 2,100 bikes in the quarter.\n"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "We have headcount at end of 2025: 212 employees. Need revenue per employee at end of 2025. We need total revenue for 2025. We have Q1 and Q3 revenue. Need Q2 and Q4. Search.",
+          "tool_calls": [
+            {
+              "id": "fc_4cf53f02-4e90-48fa-a02f-9244f7041f89",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"Q2 2025 revenue Brightwater Cycles\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.211087695,
+          "prompt_tokens": 661,
+          "prompt_time": 0.058009781,
+          "completion_tokens": 83,
+          "completion_time": 0.085639864,
+          "total_tokens": 744,
+          "total_time": 0.143649645,
+          "completion_tokens_details": {
+            "reasoning_tokens": 54
+          }
+        },
+        "latency_ms": 1397,
+        "cached": true
+      },
+      "tokens": 744,
+      "latency_ms": 1,
+      "source": "live"
+    },
+    {
+      "index": 3,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "Q2 2025 revenue Brightwater Cycles"
+      },
+      "output": "[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[07-revenue-q2-2025.md]\n# Q2 2025 results\nRevenue in the second quarter of 2025 (April to June) was $5.6 million. The company sold 2,750 bikes in the quarter, helped by spring demand.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n",
+      "tokens": null,
+      "latency_ms": 9,
+      "source": "live"
+    },
+    {
+      "index": 4,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short. Do not use the calculator; do all arithmetic in your head."
+          },
+          {
+            "role": "user",
+            "content": "What was revenue per employee at the end of 2025?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to answer: revenue per employee at the end of 2025. We must search docs. Use search_docs.",
+            "tool_calls": [
+              {
+                "id": "fc_8424f6c6-2502-4c7e-8ac1-8066be7437b7",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"revenue per employee end of 2025 Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_8424f6c6-2502-4c7e-8ac1-8066be7437b7",
+            "content": "[10-headcount.md]\n# Headcount\nAt the end of 2025 Brightwater Cycles had 212 employees: 130 in manufacturing, 34 in engineering, 28 in sales and support, and 20 in operations and administration. At the end of 2024 it had 168 employees.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[06-revenue-q1-2025.md]\n# Q1 2025 results\nRevenue in the first quarter of 2025 (January to March) was $4.2 million. The company sold 2,100 bikes in the quarter.\n"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We have headcount at end of 2025: 212 employees. Need revenue per employee at end of 2025. We need total revenue for 2025. We have Q1 and Q3 revenue. Need Q2 and Q4. Search.",
+            "tool_calls": [
+              {
+                "id": "fc_4cf53f02-4e90-48fa-a02f-9244f7041f89",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Q2 2025 revenue Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_4cf53f02-4e90-48fa-a02f-9244f7041f89",
+            "content": "[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[07-revenue-q2-2025.md]\n# Q2 2025 results\nRevenue in the second quarter of 2025 (April to June) was $5.6 million. The company sold 2,750 bikes in the quarter, helped by spring demand.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "Search for Q4 revenue.",
+          "tool_calls": [
+            {
+              "id": "fc_4a2a3f37-79d8-45ac-836e-b726a191022a",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"Q4 2025 revenue Brightwater Cycles\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.313526064,
+          "prompt_tokens": 1084,
+          "prompt_time": 0.05997294,
+          "completion_tokens": 36,
+          "completion_time": 0.037854124,
+          "total_tokens": 1120,
+          "total_time": 0.097827064,
+          "completion_tokens_details": {
+            "reasoning_tokens": 7
+          }
+        },
+        "latency_ms": 1765,
+        "cached": true
+      },
+      "tokens": 1120,
+      "latency_ms": 20,
+      "source": "live"
+    },
+    {
+      "index": 5,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "Q4 2025 revenue Brightwater Cycles"
+      },
+      "output": "[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n\n\n[09-revenue-q4-2025.md]\n# Q4 2025 results\nRevenue in the fourth quarter of 2025 (October to December) was $5.3 million. Sales slowed in winter, as in previous years.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n",
+      "tokens": null,
+      "latency_ms": 9,
+      "source": "live"
+    },
+    {
+      "index": 6,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short. Do not use the calculator; do all arithmetic in your head."
+          },
+          {
+            "role": "user",
+            "content": "What was revenue per employee at the end of 2025?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to answer: revenue per employee at the end of 2025. We must search docs. Use search_docs.",
+            "tool_calls": [
+              {
+                "id": "fc_8424f6c6-2502-4c7e-8ac1-8066be7437b7",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"revenue per employee end of 2025 Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_8424f6c6-2502-4c7e-8ac1-8066be7437b7",
+            "content": "[10-headcount.md]\n# Headcount\nAt the end of 2025 Brightwater Cycles had 212 employees: 130 in manufacturing, 34 in engineering, 28 in sales and support, and 20 in operations and administration. At the end of 2024 it had 168 employees.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[06-revenue-q1-2025.md]\n# Q1 2025 results\nRevenue in the first quarter of 2025 (January to March) was $4.2 million. The company sold 2,100 bikes in the quarter.\n"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We have headcount at end of 2025: 212 employees. Need revenue per employee at end of 2025. We need total revenue for 2025. We have Q1 and Q3 revenue. Need Q2 and Q4. Search.",
+            "tool_calls": [
+              {
+                "id": "fc_4cf53f02-4e90-48fa-a02f-9244f7041f89",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Q2 2025 revenue Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_4cf53f02-4e90-48fa-a02f-9244f7041f89",
+            "content": "[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[07-revenue-q2-2025.md]\n# Q2 2025 results\nRevenue in the second quarter of 2025 (April to June) was $5.6 million. The company sold 2,750 bikes in the quarter, helped by spring demand.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "Search for Q4 revenue.",
+            "tool_calls": [
+              {
+                "id": "fc_4a2a3f37-79d8-45ac-836e-b726a191022a",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Q4 2025 revenue Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_4a2a3f37-79d8-45ac-836e-b726a191022a",
+            "content": "[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n\n\n[09-revenue-q4-2025.md]\n# Q4 2025 results\nRevenue in the fourth quarter of 2025 (October to December) was $5.3 million. Sales slowed in winter, as in previous years.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "content": "$100,000 per employee.",
+          "reasoning": "Now we have revenue for all four quarters: Q1 $4.2M, Q2 $5.6M, Q3 $6.1M, Q4 $5.3M. Sum: 4.2+5.6=9.8; 9.8+6.1=15.9; 15.9+5.3=21.2 million. So total revenue 2025: $21.2M. Headcount 212 employees. Revenue per employee = 21.2M / 212. Let's compute: 212 * 100k = 21.2M? Wait 212 * 100k = 21.2M. Yes 212 * 100,000 = 21,200,000. So revenue per employee = $100,000. So answer: $100,000 per employee. Provide short answer."
+        },
+        "usage": {
+          "queue_time": 0.327933051,
+          "prompt_tokens": 1453,
+          "prompt_time": 0.084589946,
+          "completion_tokens": 202,
+          "completion_time": 0.235312176,
+          "total_tokens": 1655,
+          "total_time": 0.319902122,
+          "completion_tokens_details": {
+            "reasoning_tokens": 186
+          }
+        },
+        "latency_ms": 1544,
+        "cached": false
+      },
+      "tokens": 1655,
+      "latency_ms": 1549,
+      "source": "live"
+    }
+  ]
+}

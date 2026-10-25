@@ -1,0 +1,14 @@
+{
+  "mutations": 10,
+  "fired": 10,
+  "a_matches": 10,
+  "analyst_model": "gemini/gemini-3.5-flash-lite",
+  "agent_model": "groq/openai/gpt-oss-20b",
+  "b_scored": 10,
+  "b_raw_logs_step_correct": 9,
+  "b_raw_logs_type_correct": 8,
+  "b_raw_logs_correct": 8,
+  "b_diff_report_step_correct": 10,
+  "b_diff_report_type_correct": 8,
+  "b_diff_report_correct": 8
+}

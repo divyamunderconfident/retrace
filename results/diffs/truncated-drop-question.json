@@ -1,0 +1,92 @@
+{
+  "run_a": "0453f6e55433429eaf73cc097a2c66a4",
+  "run_b": "6d36a247b1174fe2b3775018182168d2",
+  "steps_a": 9,
+  "steps_b": 9,
+  "first_divergence": 4,
+  "kind": "input",
+  "step_a": {
+    "index": 4,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "step_b": {
+    "index": 4,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "changes": [
+    {
+      "path": "input.messages[1].content",
+      "a": "What was Brightwater Cycles' total revenue in 2025?",
+      "b": "<missing>"
+    },
+    {
+      "path": "input.messages[1].reasoning",
+      "a": "<missing>",
+      "b": "We need to search docs."
+    },
+    {
+      "path": "input.messages[1].role",
+      "a": "user",
+      "b": "assistant"
+    },
+    {
+      "path": "input.messages[1].tool_calls",
+      "a": "<missing>",
+      "b": [
+        {
+          "id": "fc_b00927f4-dcf3-43a9-8770-ff4382311a28",
+          "type": "function",
+          "function": {
+            "name": "search_docs",
+            "arguments": "{\"query\":\"Brightwater Cycles total revenue 2025\"}"
+          }
+        }
+      ]
+    },
+    {
+      "path": "input.messages[2].content",
+      "a": "<missing>",
+      "b": "[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[08-revenue-q3-2025.md]\n# Q3 2025 results\nRevenue in the third quarter of 2025 (July to September) was $6.1 million. The Ridgeline recall cost $0.4 million. That cost is recorded as an expense; it does not reduce the revenue figure.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[06-revenue-q1-2025.md]\n# Q1 2025 results\nRevenue in the first quarter of 2025 (January to March) was $4.2 million. The company sold 2,100 bikes in the quarter.\n"
+    },
+    {
+      "path": "input.messages[2].reasoning",
+      "a": "We need to search docs.",
+      "b": "<missing>"
+    },
+    {
+      "path": "input.messages[2].role",
+      "a": "assistant",
+      "b": "tool"
+    },
+    {
+      "path": "input.messages[2].tool_call_id",
+      "a": "<missing>",
+      "b": "fc_b00927f4-dcf3-43a9-8770-ff4382311a28"
+    }
+  ],
+  "tokens": {
+    "a": 5109,
+    "b": 4973,
+    "delta": -136
+  },
+  "cost_usd": {
+    "a": 0.0,
+    "b": 0.0,
+    "delta": 0.0
+  },
+  "after_a": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:calculator",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "after_b": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:calculator",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "report": "Run a: 0453f6e55433429eaf73cc097a2c66a4 (9 steps, 5109 tokens)\nRun b: 6d36a247b1174fe2b3775018182168d2 (9 steps, 4973 tokens)\nFirst divergence: step 4 (model groq/openai/gpt-oss-20b), input changed\n  input.messages[1].content: \"What was Brightwater Cycles' total revenue in 2025?\" -> <missing>\n  input.messages[1].reasoning: <missing> -> 'We need to search docs.'\n  input.messages[1].role: 'user' -> 'assistant'\n  input.messages[1].tool_calls: <missing> -> [{'id': 'fc_b00927f4-dcf3-43a9-8770-ff4382311a28', 'type': 'function', 'function': {'name': 'search_docs', 'arguments': '{\"query\":\"Brightwater Cycles total revenue 2025\"}'}}]\n  input.messages[2].content: <missing> -> '[01-overview.md]\\n# Brightwater Cycles: company overview\\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 part... (1273 chars)\n  input.messages[2].reasoning: 'We need to search docs.' -> <missing>\n  input.messages[2].role: 'assistant' -> 'tool'\n  input.messages[2].tool_call_id: <missing> -> 'fc_b00927f4-dcf3-43a9-8770-ff4382311a28'\nAfter the divergence, run a: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:calculator, model:groq/openai/gpt-oss-20b\nAfter the divergence, run b: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:calculator, model:groq/openai/gpt-oss-20b\nTokens: 5109 -> 4973 (-136); cost: $0.0000 -> $0.0000 (+0.0000)"
+}

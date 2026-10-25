@@ -1,0 +1,252 @@
+[
+  {
+    "id": "wrong-arg-calculator",
+    "raw_logs": {
+      "answer": {
+        "step": 3,
+        "bug_type": "wrong tool argument",
+        "explanation": "The calculator tool in run b evaluated 3200 + 1450 instead of subtraction (3200 - 1450), producing the wrong arithmetic result."
+      },
+      "raw_reply": "{\"step\": 3, \"bug_type\": \"wrong tool argument\", \"explanation\": \"The calculator tool in run b evaluated 3200 + 1450 instead of subtraction (3200 - 1450), producing the wrong arithmetic result.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    },
+    "diff_report": {
+      "answer": {
+        "step": 3,
+        "bug_type": "wrong tool argument",
+        "explanation": "The agent passed an incorrect addition operation instead of subtraction to the calculator tool."
+      },
+      "raw_reply": "{\"step\": 3, \"bug_type\": \"wrong tool argument\", \"explanation\": \"The agent passed an incorrect addition operation instead of subtraction to the calculator tool.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    }
+  },
+  {
+    "id": "wrong-arg-search",
+    "raw_logs": {
+      "answer": {
+        "step": 3,
+        "bug_type": "swallowed tool error",
+        "explanation": "In step 3 of run b, the tool search_docs returns an empty or unexpected result due to a swallowed tool error or failure, causing the tool output to fallback to a different set of documents."
+      },
+      "raw_reply": "{\"step\": 3, \"bug_type\": \"swallowed tool error\", \"explanation\": \"In step 3 of run b, the tool search_docs returns an empty or unexpected result due to a swallowed tool error or failure, causing the tool output to fallback to a different set of documents.\"}",
+      "step_correct": false,
+      "type_correct": false,
+      "correct": false
+    },
+    "diff_report": {
+      "answer": {
+        "step": 1,
+        "bug_type": "truncated context",
+        "explanation": "The query was truncated from a detailed search for Ridgeline bike recalls and battery suppliers down to just 'Ridgeline', leading to broader, less relevant search results and causing the agent run to fail early."
+      },
+      "raw_reply": "{\"step\": 1, \"bug_type\": \"truncated context\", \"explanation\": \"The query was truncated from a detailed search for Ridgeline bike recalls and battery suppliers down to just 'Ridgeline', leading to broader, less relevant search results and causing the agent run to fail early.\"}",
+      "step_correct": true,
+      "type_correct": false,
+      "correct": false
+    }
+  },
+  {
+    "id": "truncated-drop-question",
+    "raw_logs": {
+      "answer": {
+        "step": 4,
+        "bug_type": "truncated context",
+        "explanation": "In run b at step 4, the model's input context is truncated, missing the previous tool call and output history, which causes the agent to re-execute tool calls and loop unnecessarily."
+      },
+      "raw_reply": "{\"step\": 4, \"bug_type\": \"truncated context\", \"explanation\": \"In run b at step 4, the model's input context is truncated, missing the previous tool call and output history, which causes the agent to re-execute tool calls and loop unnecessarily.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    },
+    "diff_report": {
+      "answer": {
+        "step": 4,
+        "bug_type": "truncated context",
+        "explanation": "Run b drops the original user question in the message history, causing context loss for subsequent steps."
+      },
+      "raw_reply": "{\"step\": 4, \"bug_type\": \"truncated context\", \"explanation\": \"Run b drops the original user question in the message history, causing context loss for subsequent steps.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    }
+  },
+  {
+    "id": "truncated-tool-results",
+    "raw_logs": {
+      "answer": {
+        "step": 2,
+        "bug_type": "truncated context",
+        "explanation": "In step 2, the tool output was truncated, causing the agent to lose the full document text and loop indefinitely trying to re-read files."
+      },
+      "raw_reply": "{\"step\": 2, \"bug_type\": \"truncated context\", \"explanation\": \"In step 2, the tool output was truncated, causing the agent to lose the full document text and loop indefinitely trying to re-read files.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    },
+    "diff_report": {
+      "answer": {
+        "step": 2,
+        "bug_type": "truncated context",
+        "explanation": "Run b received a truncated file content in the message input, forcing the model to search for the file again instead of proceeding with the calculation."
+      },
+      "raw_reply": "{\"step\": 2, \"bug_type\": \"truncated context\", \"explanation\": \"Run b received a truncated file content in the message input, forcing the model to search for the file again instead of proceeding with the calculation.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    }
+  },
+  {
+    "id": "vague-search-description",
+    "raw_logs": {
+      "answer": {
+        "step": 0,
+        "bug_type": "vague tool description",
+        "explanation": "The `search_docs` tool description in run b is changed to the vague 'Does a lookup.', which causes the agent to need more search steps and reasoning tokens than in run a."
+      },
+      "raw_reply": "{\"step\": 0, \"bug_type\": \"vague tool description\", \"explanation\": \"The `search_docs` tool description in run b is changed to the vague 'Does a lookup.', which causes the agent to need more search steps and reasoning tokens than in run a.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    },
+    "diff_report": {
+      "answer": {
+        "step": 0,
+        "bug_type": "vague tool description",
+        "explanation": "Changing the tool and parameter descriptions to vague terms like 'Does a lookup' and 'input' causes the model to misunderstand the tool's purpose."
+      },
+      "raw_reply": "{\"step\": 0, \"bug_type\": \"vague tool description\", \"explanation\": \"Changing the tool and parameter descriptions to vague terms like 'Does a lookup' and 'input' causes the model to misunderstand the tool's purpose.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    }
+  },
+  {
+    "id": "vague-calculator-description",
+    "raw_logs": {
+      "answer": {
+        "step": 0,
+        "bug_type": "vague tool description",
+        "explanation": "The calculator tool description was changed to 'Utility.' in run b, making its purpose vague compared to run a."
+      },
+      "raw_reply": "{\"step\": 0, \"bug_type\": \"vague tool description\", \"explanation\": \"The calculator tool description was changed to 'Utility.' in run b, making its purpose vague compared to run a.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    },
+    "diff_report": {
+      "answer": {
+        "step": 0,
+        "bug_type": "vague tool description",
+        "explanation": "The tool description and parameter descriptions were changed to vague terms ('Utility' and 'input'), impairing the model's ability to use the calculator tool correctly."
+      },
+      "raw_reply": "{\"step\": 0, \"bug_type\": \"vague tool description\", \"explanation\": \"The tool description and parameter descriptions were changed to vague terms ('Utility' and 'input'), impairing the model's ability to use the calculator tool correctly.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    }
+  },
+  {
+    "id": "contradiction-no-tools",
+    "raw_logs": {
+      "answer": {
+        "step": 0,
+        "bug_type": "contradicting instruction",
+        "explanation": "The system prompt contains a contradicting instruction telling the model to never call tools while simultaneously requiring it to use search_docs and calculator to answer questions."
+      },
+      "raw_reply": "{\"step\": 0, \"bug_type\": \"contradicting instruction\", \"explanation\": \"The system prompt contains a contradicting instruction telling the model to never call tools while simultaneously requiring it to use search_docs and calculator to answer questions.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    },
+    "diff_report": {
+      "answer": {
+        "step": 0,
+        "bug_type": "contradicting instruction",
+        "explanation": "The prompt contains conflicting instructions telling the model to use tools while simultaneously commanding it to never call tools."
+      },
+      "raw_reply": "{\"step\": 0, \"bug_type\": \"contradicting instruction\", \"explanation\": \"The prompt contains conflicting instructions telling the model to use tools while simultaneously commanding it to never call tools.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    }
+  },
+  {
+    "id": "contradiction-no-calculator",
+    "raw_logs": {
+      "answer": {
+        "step": 0,
+        "bug_type": "contradicting instruction",
+        "explanation": "The system prompt includes a contradicting instruction telling the model not to use the calculator, which forces it to rely on mental math for complex arithmetic."
+      },
+      "raw_reply": "{\"step\": 0, \"bug_type\": \"contradicting instruction\", \"explanation\": \"The system prompt includes a contradicting instruction telling the model not to use the calculator, which forces it to rely on mental math for complex arithmetic.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    },
+    "diff_report": {
+      "answer": {
+        "step": 0,
+        "bug_type": "contradicting instruction",
+        "explanation": "Adding an instruction to not use the calculator while the task requires arithmetic causes the agent to fail to compute the final answer."
+      },
+      "raw_reply": "{\"step\": 0, \"bug_type\": \"contradicting instruction\", \"explanation\": \"Adding an instruction to not use the calculator while the task requires arithmetic causes the agent to fail to compute the final answer.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    }
+  },
+  {
+    "id": "swallowed-search-error",
+    "raw_logs": {
+      "answer": {
+        "step": 1,
+        "bug_type": "vague tool description",
+        "explanation": "The tool description for search_docs is too vague for the search implementation to handle multi-keyword compound queries properly, returning empty results."
+      },
+      "raw_reply": "```json\n{\"step\": 1, \"bug_type\": \"vague tool description\", \"explanation\": \"The tool description for search_docs is too vague for the search implementation to handle multi-keyword compound queries properly, returning empty results.\"}\n```",
+      "step_correct": true,
+      "type_correct": false,
+      "correct": false
+    },
+    "diff_report": {
+      "answer": {
+        "step": 1,
+        "bug_type": "truncated context",
+        "explanation": "The output of search_docs was truncated, forcing the agent to repeatedly search the same documentation in subsequent steps."
+      },
+      "raw_reply": "{\"step\": 1, \"bug_type\": \"truncated context\", \"explanation\": \"The output of search_docs was truncated, forcing the agent to repeatedly search the same documentation in subsequent steps.\"}",
+      "step_correct": true,
+      "type_correct": false,
+      "correct": false
+    }
+  },
+  {
+    "id": "swallowed-calculator-error",
+    "raw_logs": {
+      "answer": {
+        "step": 3,
+        "bug_type": "swallowed tool error",
+        "explanation": "The calculator tool returned an empty output string instead of the computed result, but the agent proceeded without handling the error."
+      },
+      "raw_reply": "{\"step\": 3, \"bug_type\": \"swallowed tool error\", \"explanation\": \"The calculator tool returned an empty output string instead of the computed result, but the agent proceeded without handling the error.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    },
+    "diff_report": {
+      "answer": {
+        "step": 3,
+        "bug_type": "swallowed tool error",
+        "explanation": "The calculator tool returned an empty string instead of the result due to a swallowed execution error."
+      },
+      "raw_reply": "{\"step\": 3, \"bug_type\": \"swallowed tool error\", \"explanation\": \"The calculator tool returned an empty string instead of the result due to a swallowed execution error.\"}",
+      "step_correct": true,
+      "type_correct": true,
+      "correct": true
+    }
+  }
+]

@@ -1,0 +1,586 @@
+{
+  "run_id": "8d850f38a1534c70a4751912e99bdfe4",
+  "steps": [
+    {
+      "index": 0,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short."
+          },
+          {
+            "role": "user",
+            "content": "Why were Ridgeline bikes recalled in 2025, and which battery supplier does Brightwater use now?"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "We need to search docs.",
+          "tool_calls": [
+            {
+              "id": "fc_14a1e326-6d96-4f41-8184-e632b2dc96b1",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"Ridgeline bikes recalled 2025 Brightwater Cycles battery supplier now\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.485422788,
+          "prompt_tokens": 273,
+          "prompt_time": 0.024158207,
+          "completion_tokens": 44,
+          "completion_time": 0.048483062,
+          "total_tokens": 317,
+          "total_time": 0.072641269,
+          "completion_tokens_details": {
+            "reasoning_tokens": 7
+          }
+        },
+        "latency_ms": 1189,
+        "cached": true
+      },
+      "tokens": 317,
+      "latency_ms": 14,
+      "source": "live"
+    },
+    {
+      "index": 1,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "Ridgeline bikes recalled 2025 Brightwater Cycles battery supplier now"
+      },
+      "output": "[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[13-warranty.md]\n# Warranty\nFrames are covered for 7 years. Batteries are covered for 2 years or 800 charge cycles, whichever comes first. Motors are covered for 3 years. Owners of recalled Ridgeline bikes had their battery warranty extended to 4 years.\n\n\n[20-competitors.md]\n# Competitors\nThe main competitors are Velora, which sells cheaper city bikes, and Summit E-Bikes, which sells premium mountain bikes. Brightwater's market share in its home region was about 11 percent in 2025.\n",
+      "tokens": null,
+      "latency_ms": 6,
+      "source": "live"
+    },
+    {
+      "index": 2,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short."
+          },
+          {
+            "role": "user",
+            "content": "Why were Ridgeline bikes recalled in 2025, and which battery supplier does Brightwater use now?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to search docs.",
+            "tool_calls": [
+              {
+                "id": "fc_14a1e326-6d96-4f41-8184-e632b2dc96b1",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Ridgeline bikes recalled 2025 Brightwater Cycles battery supplier now\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_14a1e326-6d96-4f41-8184-e632b2dc96b1",
+            "content": "[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[13-warranty.md]\n# Warranty\nFrames are covered for 7 years. Batteries are covered for 2 years or 800 charge cycles, whichever comes first. Motors are covered for 3 years. Owners of recalled Ridgeline bikes had their battery warranty extended to 4 years.\n\n\n[20-competitors.md]\n# Competitors\nThe main competitors are Velora, which sells cheaper city bikes, and Summit E-Bikes, which sells premium mountain bikes. Brightwater's market share in its home region was about 11 percent in 2025.\n"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "We have recall info. Need battery supplier now. Search.",
+          "tool_calls": [
+            {
+              "id": "fc_c3d3313a-8193-4889-a329-77d9e62b390f",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"battery supplier Brightwater Cycles now\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.441897583,
+          "prompt_tokens": 643,
+          "prompt_time": 0.038853941,
+          "completion_tokens": 39,
+          "completion_time": 0.055232883,
+          "total_tokens": 682,
+          "total_time": 0.094086824,
+          "completion_tokens_details": {
+            "reasoning_tokens": 13
+          }
+        },
+        "latency_ms": 1083,
+        "cached": true
+      },
+      "tokens": 682,
+      "latency_ms": 15,
+      "source": "live"
+    },
+    {
+      "index": 3,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "battery supplier Brightwater Cycles now"
+      },
+      "output": "[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[02-history.md]\n# Company history\nMaya Okafor and Tomasz Wren founded Brightwater Cycles in 2016 in a rented garage in Port Alder. The first bike, the Commuter, shipped in 2017. The Ridgeline followed in 2020 and the Cargo Lite in 2023. In 2024 the company opened a second factory in Lindqvist.\n\n\n[10-headcount.md]\n# Headcount\nAt the end of 2025 Brightwater Cycles had 212 employees: 130 in manufacturing, 34 in engineering, 28 in sales and support, and 20 in operations and administration. At the end of 2024 it had 168 employees.\n",
+      "tokens": null,
+      "latency_ms": 6,
+      "source": "live"
+    },
+    {
+      "index": 4,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short."
+          },
+          {
+            "role": "user",
+            "content": "Why were Ridgeline bikes recalled in 2025, and which battery supplier does Brightwater use now?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to search docs.",
+            "tool_calls": [
+              {
+                "id": "fc_14a1e326-6d96-4f41-8184-e632b2dc96b1",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Ridgeline bikes recalled 2025 Brightwater Cycles battery supplier now\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_14a1e326-6d96-4f41-8184-e632b2dc96b1",
+            "content": "[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[13-warranty.md]\n# Warranty\nFrames are covered for 7 years. Batteries are covered for 2 years or 800 charge cycles, whichever comes first. Motors are covered for 3 years. Owners of recalled Ridgeline bikes had their battery warranty extended to 4 years.\n\n\n[20-competitors.md]\n# Competitors\nThe main competitors are Velora, which sells cheaper city bikes, and Summit E-Bikes, which sells premium mountain bikes. Brightwater's market share in its home region was about 11 percent in 2025.\n"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We have recall info. Need battery supplier now. Search.",
+            "tool_calls": [
+              {
+                "id": "fc_c3d3313a-8193-4889-a329-77d9e62b390f",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"battery supplier Brightwater Cycles now\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_c3d3313a-8193-4889-a329-77d9e62b390f",
+            "content": "[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[02-history.md]\n# Company history\nMaya Okafor and Tomasz Wren founded Brightwater Cycles in 2016 in a rented garage in Port Alder. The first bike, the Commuter, shipped in 2017. The Ridgeline followed in 2020 and the Cargo Lite in 2023. In 2024 the company opened a second factory in Lindqvist.\n\n\n[10-headcount.md]\n# Headcount\nAt the end of 2025 Brightwater Cycles had 212 employees: 130 in manufacturing, 34 in engineering, 28 in sales and support, and 20 in operations and administration. At the end of 2024 it had 168 employees.\n"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "No mention of new supplier. Maybe in other docs. Search for \"VoltCore\" or \"battery supplier\".",
+          "tool_calls": [
+            {
+              "id": "fc_0eca15b7-8628-42ef-b365-37d17a5bcef4",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"VoltCore battery supplier Brightwater\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.211424634,
+          "prompt_tokens": 1045,
+          "prompt_time": 0.062057233,
+          "completion_tokens": 47,
+          "completion_time": 0.051535038,
+          "total_tokens": 1092,
+          "total_time": 0.113592271,
+          "completion_tokens_details": {
+            "reasoning_tokens": 34
+          }
+        },
+        "latency_ms": 843,
+        "cached": true
+      },
+      "tokens": 1092,
+      "latency_ms": 13,
+      "source": "live"
+    },
+    {
+      "index": 5,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "VoltCore battery supplier Brightwater"
+      },
+      "output": "[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[12-suppliers.md]\n# Suppliers\nSince October 2025, battery cells come from Nordcell, which replaced VoltCore after the Ridgeline recall. Motors come from Kessler Drive. Frames are welded in-house at the Port Alder and Lindqvist factories.\n\n\n[02-history.md]\n# Company history\nMaya Okafor and Tomasz Wren founded Brightwater Cycles in 2016 in a rented garage in Port Alder. The first bike, the Commuter, shipped in 2017. The Ridgeline followed in 2020 and the Cargo Lite in 2023. In 2024 the company opened a second factory in Lindqvist.\n",
+      "tokens": null,
+      "latency_ms": 6,
+      "source": "live"
+    },
+    {
+      "index": 6,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short."
+          },
+          {
+            "role": "user",
+            "content": "Why were Ridgeline bikes recalled in 2025, and which battery supplier does Brightwater use now?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to search docs.",
+            "tool_calls": [
+              {
+                "id": "fc_14a1e326-6d96-4f41-8184-e632b2dc96b1",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Ridgeline bikes recalled 2025 Brightwater Cycles battery supplier now\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_14a1e326-6d96-4f41-8184-e632b2dc96b1",
+            "content": "[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[13-warranty.md]\n# Warranty\nFrames are covered for 7 years. Batteries are covered for 2 years or 800 charge cycles, whichever comes first. Motors are covered for 3 years. Owners of recalled Ridgeline bikes had their battery warranty extended to 4 years.\n\n\n[20-competitors.md]\n# Competitors\nThe main competitors are Velora, which sells cheaper city bikes, and Summit E-Bikes, which sells premium mountain bikes. Brightwater's market share in its home region was about 11 percent in 2025.\n"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We have recall info. Need battery supplier now. Search.",
+            "tool_calls": [
+              {
+                "id": "fc_c3d3313a-8193-4889-a329-77d9e62b390f",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"battery supplier Brightwater Cycles now\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_c3d3313a-8193-4889-a329-77d9e62b390f",
+            "content": "[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[02-history.md]\n# Company history\nMaya Okafor and Tomasz Wren founded Brightwater Cycles in 2016 in a rented garage in Port Alder. The first bike, the Commuter, shipped in 2017. The Ridgeline followed in 2020 and the Cargo Lite in 2023. In 2024 the company opened a second factory in Lindqvist.\n\n\n[10-headcount.md]\n# Headcount\nAt the end of 2025 Brightwater Cycles had 212 employees: 130 in manufacturing, 34 in engineering, 28 in sales and support, and 20 in operations and administration. At the end of 2024 it had 168 employees.\n"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "No mention of new supplier. Maybe in other docs. Search for \"VoltCore\" or \"battery supplier\".",
+            "tool_calls": [
+              {
+                "id": "fc_0eca15b7-8628-42ef-b365-37d17a5bcef4",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"VoltCore battery supplier Brightwater\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_0eca15b7-8628-42ef-b365-37d17a5bcef4",
+            "content": "[11-recall-2025.md]\n# Ridgeline recall, August 2025\nIn August 2025 Brightwater recalled 1,340 Ridgeline bikes built between February and May 2025. Battery cells from the supplier VoltCore could overheat during fast charging. No injuries were reported. Affected owners received a free replacement battery.\n\n\n[17-sustainability.md]\n# Sustainability report 2025\nIn 2025, 62 percent of the aluminium in Brightwater frames was recycled. The target is 80 percent by 2027. The battery take-back programme collected 410 used battery packs in 2025.\n\n\n[01-overview.md]\n# Brightwater Cycles: company overview\nBrightwater Cycles designs and sells electric bikes. The head office is in Port Alder. The company was founded in 2016. It sells three models: the Commuter, the Ridgeline and the Cargo Lite. Bikes are sold directly online and through 40 partner shops.\n\n\n[12-suppliers.md]\n# Suppliers\nSince October 2025, battery cells come from Nordcell, which replaced VoltCore after the Ridgeline recall. Motors come from Kessler Drive. Frames are welded in-house at the Port Alder and Lindqvist factories.\n\n\n[02-history.md]\n# Company history\nMaya Okafor and Tomasz Wren founded Brightwater Cycles in 2016 in a rented garage in Port Alder. The first bike, the Commuter, shipped in 2017. The Ridgeline followed in 2020 and the Cargo Lite in 2023. In 2024 the company opened a second factory in Lindqvist.\n"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "content": "The 2025 recall of 1,340 Ridgeline bikes was triggered because battery cells supplied by VoltCore could overheat during fast charging. After the recall, Brightwater switched its battery supplier to Nordcell.",
+          "reasoning": "Now we have supplier info. So answer: recall due to battery cells overheating during fast charging. Battery supplier now is Nordcell."
+        },
+        "usage": {
+          "queue_time": 0.397252612,
+          "prompt_tokens": 1449,
+          "prompt_time": 0.073927062,
+          "completion_tokens": 80,
+          "completion_time": 0.093882917,
+          "total_tokens": 1529,
+          "total_time": 0.167809979,
+          "completion_tokens_details": {
+            "reasoning_tokens": 27
+          }
+        },
+        "latency_ms": 1115,
+        "cached": true
+      },
+      "tokens": 1529,
+      "latency_ms": 13,
+      "source": "live"
+    }
+  ]
+}

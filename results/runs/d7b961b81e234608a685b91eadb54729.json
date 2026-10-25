@@ -1,0 +1,1001 @@
+{
+  "run_id": "d7b961b81e234608a685b91eadb54729",
+  "steps": [
+    {
+      "index": 0,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short."
+          },
+          {
+            "role": "user",
+            "content": "How much more does a Cargo Lite cost than a Commuter?"
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "We need to find price difference between Cargo Lite and Commuter. Use search_docs.",
+          "tool_calls": [
+            {
+              "id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"Cargo Lite price Commuter price Brightwater Cycles\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.398057141,
+          "prompt_tokens": 265,
+          "prompt_time": 0.013286464,
+          "completion_tokens": 52,
+          "completion_time": 0.072040014,
+          "total_tokens": 317,
+          "total_time": 0.085326478,
+          "completion_tokens_details": {
+            "reasoning_tokens": 19
+          }
+        },
+        "latency_ms": 1114,
+        "cached": true
+      },
+      "tokens": 317,
+      "latency_ms": 1,
+      "source": "live"
+    },
+    {
+      "index": 1,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "Cargo Lite price Commuter price Brightwater Cycles"
+      },
+      "output": "",
+      "tokens": null,
+      "latency_ms": 3,
+      "source": "live"
+    },
+    {
+      "index": 2,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short."
+          },
+          {
+            "role": "user",
+            "content": "How much more does a Cargo Lite cost than a Commuter?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to find price difference between Cargo Lite and Commuter. Use search_docs.",
+            "tool_calls": [
+              {
+                "id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite price Commuter price Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+            "content": ""
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "We need to see if docs contain price info. Let's search for \"Cargo Lite\" and \"Commuter\".",
+          "tool_calls": [
+            {
+              "id": "fc_ed734132-abae-4376-976b-56c75ed3d19f",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"Cargo Lite Brightwater Cycles\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.206774849,
+          "prompt_tokens": 324,
+          "prompt_time": 0.018481598,
+          "completion_tokens": 49,
+          "completion_time": 0.06970362,
+          "total_tokens": 373,
+          "total_time": 0.088185218,
+          "completion_tokens_details": {
+            "reasoning_tokens": 24
+          }
+        },
+        "latency_ms": 1121,
+        "cached": false
+      },
+      "tokens": 373,
+      "latency_ms": 1125,
+      "source": "live"
+    },
+    {
+      "index": 3,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "Cargo Lite Brightwater Cycles"
+      },
+      "output": "",
+      "tokens": null,
+      "latency_ms": 0,
+      "source": "live"
+    },
+    {
+      "index": 4,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short."
+          },
+          {
+            "role": "user",
+            "content": "How much more does a Cargo Lite cost than a Commuter?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to find price difference between Cargo Lite and Commuter. Use search_docs.",
+            "tool_calls": [
+              {
+                "id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite price Commuter price Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+            "content": ""
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to see if docs contain price info. Let's search for \"Cargo Lite\" and \"Commuter\".",
+            "tool_calls": [
+              {
+                "id": "fc_ed734132-abae-4376-976b-56c75ed3d19f",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_ed734132-abae-4376-976b-56c75ed3d19f",
+            "content": ""
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "We need to see results. Let's assume we get some docs. But we need to answer. Let's search for \"Commuter\" price.",
+          "tool_calls": [
+            {
+              "id": "fc_82642e84-a0ea-45a6-b8e7-6aa83000742e",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"Commuter Brightwater Cycles price\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.315674228,
+          "prompt_tokens": 383,
+          "prompt_time": 0.021115182,
+          "completion_tokens": 57,
+          "completion_time": 0.062427738,
+          "total_tokens": 440,
+          "total_time": 0.08354292,
+          "completion_tokens_details": {
+            "reasoning_tokens": 30
+          }
+        },
+        "latency_ms": 1322,
+        "cached": false
+      },
+      "tokens": 440,
+      "latency_ms": 1326,
+      "source": "live"
+    },
+    {
+      "index": 5,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "Commuter Brightwater Cycles price"
+      },
+      "output": "",
+      "tokens": null,
+      "latency_ms": 0,
+      "source": "live"
+    },
+    {
+      "index": 6,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short."
+          },
+          {
+            "role": "user",
+            "content": "How much more does a Cargo Lite cost than a Commuter?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to find price difference between Cargo Lite and Commuter. Use search_docs.",
+            "tool_calls": [
+              {
+                "id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite price Commuter price Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+            "content": ""
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to see if docs contain price info. Let's search for \"Cargo Lite\" and \"Commuter\".",
+            "tool_calls": [
+              {
+                "id": "fc_ed734132-abae-4376-976b-56c75ed3d19f",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_ed734132-abae-4376-976b-56c75ed3d19f",
+            "content": ""
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to see results. Let's assume we get some docs. But we need to answer. Let's search for \"Commuter\" price.",
+            "tool_calls": [
+              {
+                "id": "fc_82642e84-a0ea-45a6-b8e7-6aa83000742e",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Commuter Brightwater Cycles price\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_82642e84-a0ea-45a6-b8e7-6aa83000742e",
+            "content": ""
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "We need to parse results. Since we don't see them, we need to assume. But we must answer only from documents. If not found, say so. Let's assume we didn't find price info. But maybe there is a product page. Let's search for \"price\" and \"Cargo Lite\".",
+          "tool_calls": [
+            {
+              "id": "fc_a9dd2a12-8545-4fa4-baa3-0a94864da625",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"Cargo Lite price\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.313734583,
+          "prompt_tokens": 450,
+          "prompt_time": 0.022127241,
+          "completion_tokens": 81,
+          "completion_time": 0.103287019,
+          "total_tokens": 531,
+          "total_time": 0.12541426,
+          "completion_tokens_details": {
+            "reasoning_tokens": 68
+          }
+        },
+        "latency_ms": 1243,
+        "cached": false
+      },
+      "tokens": 531,
+      "latency_ms": 1246,
+      "source": "live"
+    },
+    {
+      "index": 7,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "Cargo Lite price"
+      },
+      "output": "",
+      "tokens": null,
+      "latency_ms": 0,
+      "source": "live"
+    },
+    {
+      "index": 8,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short."
+          },
+          {
+            "role": "user",
+            "content": "How much more does a Cargo Lite cost than a Commuter?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to find price difference between Cargo Lite and Commuter. Use search_docs.",
+            "tool_calls": [
+              {
+                "id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite price Commuter price Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+            "content": ""
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to see if docs contain price info. Let's search for \"Cargo Lite\" and \"Commuter\".",
+            "tool_calls": [
+              {
+                "id": "fc_ed734132-abae-4376-976b-56c75ed3d19f",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_ed734132-abae-4376-976b-56c75ed3d19f",
+            "content": ""
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to see results. Let's assume we get some docs. But we need to answer. Let's search for \"Commuter\" price.",
+            "tool_calls": [
+              {
+                "id": "fc_82642e84-a0ea-45a6-b8e7-6aa83000742e",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Commuter Brightwater Cycles price\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_82642e84-a0ea-45a6-b8e7-6aa83000742e",
+            "content": ""
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to parse results. Since we don't see them, we need to assume. But we must answer only from documents. If not found, say so. Let's assume we didn't find price info. But maybe there is a product page. Let's search for \"price\" and \"Cargo Lite\".",
+            "tool_calls": [
+              {
+                "id": "fc_a9dd2a12-8545-4fa4-baa3-0a94864da625",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite price\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_a9dd2a12-8545-4fa4-baa3-0a94864da625",
+            "content": ""
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "reasoning": "We need to see if any doc contains price. If not, answer that we don't have info. Let's search for \"Commuter price\".",
+          "tool_calls": [
+            {
+              "id": "fc_cd569ec8-78a6-4f9d-b78a-6336a602eaeb",
+              "type": "function",
+              "function": {
+                "name": "search_docs",
+                "arguments": "{\"query\":\"Commuter price\"}"
+              }
+            }
+          ]
+        },
+        "usage": {
+          "queue_time": 0.403691664,
+          "prompt_tokens": 542,
+          "prompt_time": 0.043318709,
+          "completion_tokens": 52,
+          "completion_time": 0.057435144,
+          "total_tokens": 594,
+          "total_time": 0.100753853,
+          "completion_tokens_details": {
+            "reasoning_tokens": 39
+          }
+        },
+        "latency_ms": 1305,
+        "cached": false
+      },
+      "tokens": 594,
+      "latency_ms": 1310,
+      "source": "live"
+    },
+    {
+      "index": 9,
+      "type": "tool",
+      "name": "search_docs",
+      "input": {
+        "query": "Commuter price"
+      },
+      "output": "",
+      "tokens": null,
+      "latency_ms": 0,
+      "source": "live"
+    },
+    {
+      "index": 10,
+      "type": "model",
+      "name": "groq/openai/gpt-oss-20b",
+      "input": {
+        "messages": [
+          {
+            "role": "system",
+            "content": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short."
+          },
+          {
+            "role": "user",
+            "content": "How much more does a Cargo Lite cost than a Commuter?"
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to find price difference between Cargo Lite and Commuter. Use search_docs.",
+            "tool_calls": [
+              {
+                "id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite price Commuter price Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_24047bab-0fa2-49c1-828c-32a6e684dade",
+            "content": ""
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to see if docs contain price info. Let's search for \"Cargo Lite\" and \"Commuter\".",
+            "tool_calls": [
+              {
+                "id": "fc_ed734132-abae-4376-976b-56c75ed3d19f",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite Brightwater Cycles\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_ed734132-abae-4376-976b-56c75ed3d19f",
+            "content": ""
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to see results. Let's assume we get some docs. But we need to answer. Let's search for \"Commuter\" price.",
+            "tool_calls": [
+              {
+                "id": "fc_82642e84-a0ea-45a6-b8e7-6aa83000742e",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Commuter Brightwater Cycles price\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_82642e84-a0ea-45a6-b8e7-6aa83000742e",
+            "content": ""
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to parse results. Since we don't see them, we need to assume. But we must answer only from documents. If not found, say so. Let's assume we didn't find price info. But maybe there is a product page. Let's search for \"price\" and \"Cargo Lite\".",
+            "tool_calls": [
+              {
+                "id": "fc_a9dd2a12-8545-4fa4-baa3-0a94864da625",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Cargo Lite price\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_a9dd2a12-8545-4fa4-baa3-0a94864da625",
+            "content": ""
+          },
+          {
+            "role": "assistant",
+            "reasoning": "We need to see if any doc contains price. If not, answer that we don't have info. Let's search for \"Commuter price\".",
+            "tool_calls": [
+              {
+                "id": "fc_cd569ec8-78a6-4f9d-b78a-6336a602eaeb",
+                "type": "function",
+                "function": {
+                  "name": "search_docs",
+                  "arguments": "{\"query\":\"Commuter price\"}"
+                }
+              }
+            ]
+          },
+          {
+            "role": "tool",
+            "tool_call_id": "fc_cd569ec8-78a6-4f9d-b78a-6336a602eaeb",
+            "content": ""
+          }
+        ],
+        "tools": [
+          {
+            "type": "function",
+            "function": {
+              "name": "search_docs",
+              "description": "Search the company documents by keywords.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string",
+                    "description": "Keywords to search for"
+                  }
+                },
+                "required": [
+                  "query"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "calculator",
+              "description": "Evaluate an arithmetic expression.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "expression": {
+                    "type": "string",
+                    "description": "For example (4.2 + 5.6) * 2"
+                  }
+                },
+                "required": [
+                  "expression"
+                ]
+              }
+            }
+          },
+          {
+            "type": "function",
+            "function": {
+              "name": "save_note",
+              "description": "Save a note for the user. Side effect: writes to the notes file.",
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "type": "string",
+                    "description": "The note"
+                  }
+                },
+                "required": [
+                  "text"
+                ]
+              }
+            }
+          }
+        ],
+        "model": "groq/openai/gpt-oss-20b"
+      },
+      "output": {
+        "message": {
+          "role": "assistant",
+          "content": "I couldn\u2019t find any price information for the Cargo\u202fLite or the Commuter in the documents. If you have a specific source or page, let me know and I can check that.",
+          "reasoning": "We need to see results. If no price info, answer accordingly. Let's assume no price info found."
+        },
+        "usage": {
+          "queue_time": 1.200133459,
+          "prompt_tokens": 605,
+          "prompt_time": 0.062086221,
+          "completion_tokens": 70,
+          "completion_time": 0.074823415,
+          "total_tokens": 675,
+          "total_time": 0.136909636,
+          "completion_tokens_details": {
+            "reasoning_tokens": 22
+          }
+        },
+        "latency_ms": 2157,
+        "cached": false
+      },
+      "tokens": 675,
+      "latency_ms": 2163,
+      "source": "live"
+    }
+  ]
+}

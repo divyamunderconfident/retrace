@@ -1,0 +1,62 @@
+{
+  "run_a": "ec54db7a6b424c94a81698ce19b83a43",
+  "run_b": "349b17db74664592bbd6c82548dc6969",
+  "steps_a": 7,
+  "steps_b": 7,
+  "first_divergence": 0,
+  "kind": "input",
+  "step_a": {
+    "index": 0,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "step_b": {
+    "index": 0,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "changes": [
+    {
+      "path": "input.tools[0].function.description",
+      "a": "Search the company documents by keywords.",
+      "b": "Does a lookup."
+    },
+    {
+      "path": "input.tools[0].function.parameters.properties.query.description",
+      "a": "Keywords to search for",
+      "b": "input"
+    },
+    {
+      "path": "output.message.tool_calls[0].id",
+      "a": "fc_14a1e326-6d96-4f41-8184-e632b2dc96b1",
+      "b": "fc_b958492b-f182-44aa-bb2d-62852ba0e41d"
+    }
+  ],
+  "tokens": {
+    "a": 3620,
+    "b": 3596,
+    "delta": -24
+  },
+  "cost_usd": {
+    "a": 0.0,
+    "b": 0.0,
+    "delta": 0.0
+  },
+  "after_a": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "after_b": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "report": "Run a: ec54db7a6b424c94a81698ce19b83a43 (7 steps, 3620 tokens)\nRun b: 349b17db74664592bbd6c82548dc6969 (7 steps, 3596 tokens)\nFirst divergence: step 0 (model groq/openai/gpt-oss-20b), input changed\n  input.tools[0].function.description: 'Search the company documents by keywords.' -> 'Does a lookup.'\n  input.tools[0].function.parameters.properties.query.description: 'Keywords to search for' -> 'input'\n  output.message.tool_calls[0].id: 'fc_14a1e326-6d96-4f41-8184-e632b2dc96b1' -> 'fc_b958492b-f182-44aa-bb2d-62852ba0e41d'\nAfter the divergence, run a: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b\nAfter the divergence, run b: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b\nTokens: 3620 -> 3596 (-24); cost: $0.0000 -> $0.0000 (+0.0000)"
+}

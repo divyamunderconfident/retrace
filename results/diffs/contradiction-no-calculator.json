@@ -1,0 +1,66 @@
+{
+  "run_a": "4e4794ef83f743b48387001418a4f804",
+  "run_b": "22acf535754f45bd80ddc798741d6b87",
+  "steps_a": 11,
+  "steps_b": 7,
+  "first_divergence": 0,
+  "kind": "input",
+  "step_a": {
+    "index": 0,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "step_b": {
+    "index": 0,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "changes": [
+    {
+      "path": "input.messages[0].content",
+      "a": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short.",
+      "b": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short. Do not use the calculator; do all arithmetic in your head."
+    },
+    {
+      "path": "output.message.reasoning",
+      "a": "We need to answer: revenue per employee at the end of 2025. We need to search docs.",
+      "b": "We need to answer: revenue per employee at the end of 2025. We must search docs. Use search_docs."
+    },
+    {
+      "path": "output.message.tool_calls[0].id",
+      "a": "fc_70a50756-d74f-407f-ad3e-1490e08efdd2",
+      "b": "fc_8424f6c6-2502-4c7e-8ac1-8066be7437b7"
+    }
+  ],
+  "tokens": {
+    "a": 6980,
+    "b": 3857,
+    "delta": -3123
+  },
+  "cost_usd": {
+    "a": 0.0,
+    "b": 0.0,
+    "delta": 0.0
+  },
+  "after_a": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:calculator",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:calculator",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "after_b": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "report": "Run a: 4e4794ef83f743b48387001418a4f804 (11 steps, 6980 tokens)\nRun b: 22acf535754f45bd80ddc798741d6b87 (7 steps, 3857 tokens)\nFirst divergence: step 0 (model groq/openai/gpt-oss-20b), input changed\n  input.messages[0].content: 'You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short.' -> 'You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short. Do not use the calculator; do all arithm... (319 chars)\n  output.message.reasoning: 'We need to answer: revenue per employee at the end of 2025. We need to search docs.' -> 'We need to answer: revenue per employee at the end of 2025. We must search docs. Use search_docs.'\n  output.message.tool_calls[0].id: 'fc_70a50756-d74f-407f-ad3e-1490e08efdd2' -> 'fc_8424f6c6-2502-4c7e-8ac1-8066be7437b7'\nAfter the divergence, run a: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:calculator, model:groq/openai/gpt-oss-20b, tool:calculator, model:groq/openai/gpt-oss-20b\nAfter the divergence, run b: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b\nTokens: 6980 -> 3857 (-3123); cost: $0.0000 -> $0.0000 (+0.0000)"
+}

@@ -1,0 +1,63 @@
+{
+  "run_a": "ee3f601408164a9a9eca399040d235f6",
+  "run_b": "393972d5adae4b5bac24862c5c4f4c63",
+  "steps_a": 5,
+  "steps_b": 5,
+  "first_divergence": 0,
+  "kind": "input",
+  "step_a": {
+    "index": 0,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "step_b": {
+    "index": 0,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "changes": [
+    {
+      "path": "input.tools[1].function.description",
+      "a": "Evaluate an arithmetic expression.",
+      "b": "Utility."
+    },
+    {
+      "path": "input.tools[1].function.parameters.properties.expression.description",
+      "a": "For example (4.2 + 5.6) * 2",
+      "b": "input"
+    },
+    {
+      "path": "output.message.reasoning",
+      "a": "We need to search docs for Ridgeline price change March 2026.",
+      "b": "We need to search docs for \"Ridgeline\" and \"March 2026 price change\"."
+    },
+    {
+      "path": "output.message.tool_calls[0].id",
+      "a": "fc_e039cd56-4db4-47b9-9212-46446e5ab894",
+      "b": "fc_1e387f6a-71e1-4095-a959-0730e392a2a6"
+    }
+  ],
+  "tokens": {
+    "a": 1733,
+    "b": 1728,
+    "delta": -5
+  },
+  "cost_usd": {
+    "a": 0.0,
+    "b": 0.0,
+    "delta": 0.0
+  },
+  "after_a": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:calculator",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "after_b": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:calculator",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "report": "Run a: ee3f601408164a9a9eca399040d235f6 (5 steps, 1733 tokens)\nRun b: 393972d5adae4b5bac24862c5c4f4c63 (5 steps, 1728 tokens)\nFirst divergence: step 0 (model groq/openai/gpt-oss-20b), input changed\n  input.tools[1].function.description: 'Evaluate an arithmetic expression.' -> 'Utility.'\n  input.tools[1].function.parameters.properties.expression.description: 'For example (4.2 + 5.6) * 2' -> 'input'\n  output.message.reasoning: 'We need to search docs for Ridgeline price change March 2026.' -> 'We need to search docs for \"Ridgeline\" and \"March 2026 price change\".'\n  output.message.tool_calls[0].id: 'fc_e039cd56-4db4-47b9-9212-46446e5ab894' -> 'fc_1e387f6a-71e1-4095-a959-0730e392a2a6'\nAfter the divergence, run a: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:calculator, model:groq/openai/gpt-oss-20b\nAfter the divergence, run b: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:calculator, model:groq/openai/gpt-oss-20b\nTokens: 1733 -> 1728 (-5); cost: $0.0000 -> $0.0000 (+0.0000)"
+}

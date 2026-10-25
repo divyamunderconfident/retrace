@@ -1,0 +1,66 @@
+{
+  "run_a": "bb3b755ccad54bef9f0dcb62bce523b4",
+  "run_b": "2286440f43564dc39faacc22ffe40c9b",
+  "steps_a": 9,
+  "steps_b": 9,
+  "first_divergence": 0,
+  "kind": "input",
+  "step_a": {
+    "index": 0,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "step_b": {
+    "index": 0,
+    "type": "model",
+    "name": "groq/openai/gpt-oss-20b"
+  },
+  "changes": [
+    {
+      "path": "input.messages[0].content",
+      "a": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short.",
+      "b": "You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short. Never call tools. Answer immediately from your own knowledge."
+    },
+    {
+      "path": "output.message.reasoning",
+      "a": "We need to search docs.",
+      "b": "We must answer from documents. We need to search docs. Use search_docs."
+    },
+    {
+      "path": "output.message.tool_calls[0].id",
+      "a": "fc_b00927f4-dcf3-43a9-8770-ff4382311a28",
+      "b": "fc_f27611f0-c122-4acc-b16f-2a4ea747444a"
+    }
+  ],
+  "tokens": {
+    "a": 5109,
+    "b": 5228,
+    "delta": 119
+  },
+  "cost_usd": {
+    "a": 0.0,
+    "b": 0.0,
+    "delta": 0.0
+  },
+  "after_a": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:calculator",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "after_b": [
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:search_docs",
+    "model:groq/openai/gpt-oss-20b",
+    "tool:calculator",
+    "model:groq/openai/gpt-oss-20b"
+  ],
+  "report": "Run a: bb3b755ccad54bef9f0dcb62bce523b4 (9 steps, 5109 tokens)\nRun b: 2286440f43564dc39faacc22ffe40c9b (9 steps, 5228 tokens)\nFirst divergence: step 0 (model groq/openai/gpt-oss-20b), input changed\n  input.messages[0].content: 'You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short.' -> 'You answer questions about the company Brightwater Cycles. Use search_docs to find facts, calculator for any arithmetic, and save_note only when asked to save something. Answer only from the documents; if they do not say, say so. Keep the final answer short. Never call tools. Answer immediately fro... (322 chars)\n  output.message.reasoning: 'We need to search docs.' -> 'We must answer from documents. We need to search docs. Use search_docs.'\n  output.message.tool_calls[0].id: 'fc_b00927f4-dcf3-43a9-8770-ff4382311a28' -> 'fc_f27611f0-c122-4acc-b16f-2a4ea747444a'\nAfter the divergence, run a: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:calculator, model:groq/openai/gpt-oss-20b\nAfter the divergence, run b: tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:search_docs, model:groq/openai/gpt-oss-20b, tool:calculator, model:groq/openai/gpt-oss-20b\nTokens: 5109 -> 5228 (+119); cost: $0.0000 -> $0.0000 (+0.0000)"
+}
