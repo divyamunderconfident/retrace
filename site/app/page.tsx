@@ -83,6 +83,7 @@ export default function Home() {
             <a href="#broke">What broke</a>
             <a href="#how">How it works</a>
             <a href="#results">Results</a>
+            <Link href="/try">Try it</Link>
             <Link href="/runs">Runs</Link>
             <a href={GITHUB} className="rt-lift inline-flex min-h-11 items-center rounded-full border-[3px] border-ink bg-white px-5">GitHub</a>
           </div>
@@ -129,8 +130,8 @@ export default function Home() {
               </div>
               <p className="display m-0 mt-10 text-[clamp(72px,11vw,166px)] leading-[0.88]">Find<br />the bug.</p>
               <div className="flex flex-wrap justify-end gap-3">
-                <Link href={firstRun} className={`${PILL} bg-ink text-sun`}>See a run</Link>
-                <a href={GITHUB} className={`${PILL} box-border border-[3px] border-ink bg-white px-6`}><CodeIcon />GitHub</a>
+                <Link href="/try" className={`${PILL} bg-ink text-sun`}>Try it yourself</Link>
+                <Link href={firstRun} className={`${PILL} box-border border-[3px] border-ink bg-white px-6`}><CodeIcon />See a run</Link>
               </div>
             </div>
           </div>
@@ -257,7 +258,7 @@ export default function Home() {
         <div className={`${WRAP} flex flex-wrap items-end justify-between gap-8`}>
           <p className="display m-0 max-w-[12ch] text-[clamp(48px,6.5vw,96px)] leading-[0.92]">Your next bug is one fork away.</p>
           <div className="flex flex-wrap gap-3">
-            <Link href={firstRun} className={`${PILL} bg-verm text-ink`}>See a run</Link>
+            <Link href="/try" className={`${PILL} bg-verm text-ink`}>Try it yourself</Link>
             <a href={GITHUB} className={`${PILL} bg-sun text-ink`}>GitHub</a>
           </div>
         </div>

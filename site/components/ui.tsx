@@ -11,8 +11,8 @@ export function fmt(n: number) {
 const NAV = "inline-flex min-h-11 items-center rounded-full px-4 text-[15px] font-bold";
 
 /** Dark header and cream page used by the tool pages (runs, run, diff, results). */
-export function ToolShell({ current, children }: { current?: "runs" | "results"; children: React.ReactNode }) {
-  const tab = (key: "runs" | "results", href: string, label: string) => (
+export function ToolShell({ current, children }: { current?: "try" | "runs" | "results"; children: React.ReactNode }) {
+  const tab = (key: "try" | "runs" | "results", href: string, label: string) => (
     <Link
       href={href}
       aria-current={current === key ? "page" : undefined}
@@ -30,6 +30,7 @@ export function ToolShell({ current, children }: { current?: "runs" | "results";
             <span className="display text-[26px]">Retrace</span>
           </Link>
           <div className="flex flex-wrap items-center gap-1.5">
+            {tab("try", "/try", "Try it")}
             {tab("runs", "/runs", "Runs")}
             {tab("results", "/results", "Results")}
             <a href={GITHUB} className={`${NAV} ml-2 border-2 border-sun text-sun hover:bg-white/10`}>GitHub</a>
