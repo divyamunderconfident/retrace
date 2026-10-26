@@ -34,13 +34,21 @@ def main():
     (OUT / "runs").mkdir(parents=True)
     (OUT / "diffs").mkdir()
     runs, diffs = [], []
-    for m in picked:
+    # Every run is listed; only the picked pairs ship their step files, the rest are summary only.
+    for m in mutations.values():
+        exported = m in picked
         for role in ("correct", "broken"):
             run = read(RESULTS / "runs" / f"{m[f'{role}_run']}.json")
-            (OUT / "runs" / f"{run['run_id']}.json").write_text(json.dumps(run), encoding="utf-8")
+            if exported:
+                (OUT / "runs" / f"{run['run_id']}.json").write_text(json.dumps(run), encoding="utf-8")
+            answer = final_answer(run)
             runs.append({"id": run["run_id"], "label": f"{m['id']} ({role})", "role": role, "mutation": m["id"],
-                         "question": m["question"], "model": run["steps"][0]["name"], "steps": len(run["steps"]),
-                         "tokens": sum(s["tokens"] or 0 for s in run["steps"]), "answer": final_answer(run)})
+                         "type": m["type"], "question": m["question"], "model": run["steps"][0]["name"],
+                         "steps": len(run["steps"]) if exported else None,
+                         "tokens": sum(s["tokens"] or 0 for s in run["steps"]), "answer": answer,
+                         "stopped": not answer or answer.startswith("Stopped after"),
+                         "has_file": exported, "diff": m["id"] if exported else None})
+    for m in picked:
         shutil.copy(RESULTS / "diffs" / f"{m['id']}.json", OUT / "diffs" / f"{m['id']}.json")
         diffs.append({"id": m["id"], "type": m["type"], "description": m["description"],
                       "run_a": m["correct_run"], "run_b": m["broken_run"], "mutated_step": m["mutated_step"],

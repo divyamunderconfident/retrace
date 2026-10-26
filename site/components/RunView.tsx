@@ -1,103 +1,86 @@
 "use client";
 
 import { useState } from "react";
-import { Badge, Json } from "@/components/ui";
-import type { Run, Step } from "@/lib/data";
-import { stepSummary, type Message } from "@/lib/format";
+import { Block, StepNum } from "@/components/ui";
+import type { Run } from "@/lib/data";
+import { inputBlocks, outputBlocks, outputNote, shortName, stepMeta, stepShort } from "@/lib/format";
 
-function MessageBlock({ m, isNew }: { m: Message; isNew: boolean }) {
+function Panel({ title, note, head, children }: { title: string; note: string; head: string; children: React.ReactNode }) {
   return (
-    <div className={`rounded border p-2 ${isNew ? "border-emerald-800 bg-emerald-950/20" : "border-zinc-800 bg-zinc-950"}`}>
-      <div className="mb-1 flex gap-2 font-mono text-[11px] text-zinc-500">
-        <span className="text-zinc-300">{m.role}</span>
-        {m.tool_call_id && <span>for {m.tool_call_id.slice(0, 12)}</span>}
-        {isNew && <span className="text-emerald-400">new at this step</span>}
+    <div className="overflow-hidden rounded-3xl border-[3px] border-ink bg-paper">
+      <div className={`flex items-center justify-between border-b-[3px] border-ink px-5 py-3 ${head}`}>
+        <h3 className="display m-0 text-[22px]">{title}</h3>
+        <span className="text-[13px] font-bold">{note}</span>
       </div>
-      {m.reasoning && <p className="mb-1 font-mono text-xs italic text-zinc-500">reasoning: {m.reasoning}</p>}
-      {m.content && <p className="whitespace-pre-wrap break-words font-mono text-xs text-zinc-200">{m.content}</p>}
-      {m.tool_calls?.map((c) => (
-        <p key={c.id} className="font-mono text-xs text-violet-300">
-          → {c.function.name}({c.function.arguments})
-        </p>
-      ))}
+      <div className="flex max-h-[520px] flex-col gap-3.5 overflow-auto px-5 py-4">{children}</div>
     </div>
-  );
-}
-
-function Inspector({ step, previousMessageCount }: { step: Step; previousMessageCount: number }) {
-  if (step.type === "tool") {
-    return (
-      <>
-        <Section title="Input"><Json value={step.input} /></Section>
-        <Section title="Output"><Json value={step.output} /></Section>
-      </>
-    );
-  }
-  const messages = (step.input.messages ?? []) as Message[];
-  const tools = ((step.input.tools ?? []) as { function: { name: string } }[]).map((t) => t.function.name);
-  const output = step.output as { message?: Message; error?: string; usage?: unknown };
-  return (
-    <>
-      <Section title={`Input: ${messages.length} messages · tools: ${tools.join(", ") || "none"}`}>
-        <div className="space-y-1.5">
-          {messages.map((m, i) => <MessageBlock key={i} m={m} isNew={i >= previousMessageCount} />)}
-        </div>
-      </Section>
-      <Section title="Output">
-        {output.message ? <MessageBlock m={output.message} isNew={false} /> : <Json value={output} />}
-      </Section>
-    </>
-  );
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="mb-4">
-      <h3 className="mb-1.5 text-xs uppercase tracking-wide text-zinc-500">{title}</h3>
-      {children}
-    </section>
   );
 }
 
 export function RunView({ run }: { run: Run }) {
   const [selected, setSelected] = useState(0);
-  const step = run.steps[selected];
-  const previousModel = run.steps.slice(0, selected).reverse().find((s) => s.type === "model");
-  const previousMessageCount = previousModel ? ((previousModel.input.messages as Message[])?.length ?? 0) : 0;
+  const steps = run.steps;
+  const step = steps[selected];
+  const input = inputBlocks(step);
+  const output = outputBlocks(step);
+  const arrow = (d: string) => <path d={d} fill="none" stroke="#FFDB8E" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />;
+  const nav = "rt-lift flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-0 bg-ink disabled:cursor-default disabled:opacity-40";
 
   return (
-    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-      <ol className="min-w-0 space-y-1">
-        {run.steps.map((s) => (
-          <li key={s.index}>
-            <button
-              onClick={() => setSelected(s.index)}
-              className={`w-full rounded border px-3 py-2 text-left ${
-                s.index === selected ? "border-emerald-700 bg-zinc-900" : "border-zinc-800 hover:bg-zinc-900/60"
-              }`}
-            >
-              <div className="flex items-center gap-2">
-                <span className="w-5 font-mono text-xs text-zinc-500">{s.index}</span>
-                <Badge>{s.type}</Badge>
-                <span className="truncate font-mono text-xs text-zinc-300">{s.name}</span>
-                <span className="ml-auto whitespace-nowrap font-mono text-[11px] text-zinc-500">
-                  {s.tokens != null && `${s.tokens} tok · `}{s.latency_ms} ms
-                </span>
-              </div>
-              <div className="mt-1 truncate pl-7 font-mono text-xs text-zinc-400">{stepSummary(s)}</div>
+    <div className="flex flex-wrap items-start gap-7">
+      <aside aria-label="Step timeline" className="flex min-w-0 max-w-[340px] flex-[1_1_260px] flex-col gap-3.5">
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="display m-0 text-[26px]">Timeline</h2>
+          <div className="flex gap-2">
+            <button type="button" aria-label="Previous step" disabled={selected === 0} onClick={() => setSelected(selected - 1)} className={nav}>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">{arrow("M15 5l-7 7 7 7")}</svg>
             </button>
-          </li>
-        ))}
-      </ol>
-      <div className="min-w-0 lg:sticky lg:top-4 lg:self-start">
-        <div className="mb-3 flex items-center gap-2">
-          <span className="font-mono text-zinc-100">step {step.index}</span>
-          <Badge>{step.type}</Badge>
-          <Badge>{step.source}</Badge>
-          <span className="font-mono text-xs text-zinc-500">{step.name}</span>
+            <button type="button" aria-label="Next step" disabled={selected === steps.length - 1} onClick={() => setSelected(selected + 1)} className={nav}>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">{arrow("M9 5l7 7-7 7")}</svg>
+            </button>
+          </div>
         </div>
-        <Inspector step={step} previousMessageCount={previousMessageCount} />
-      </div>
+        <ol className="m-0 flex list-none flex-col p-0">
+          {steps.map((st, i) => {
+            const on = i === selected;
+            return (
+              <li key={st.index} className="flex flex-col">
+                <button
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => setSelected(i)}
+                  className={`flex min-h-16 w-full cursor-pointer items-center gap-3.5 rounded-full border-[3px] border-ink py-2.5 pr-4 pl-3 text-left transition-transform ${
+                    on ? "translate-x-1.5 bg-ink text-sun" : st.type === "model" ? "bg-white" : "bg-sun"
+                  }`}
+                >
+                  <StepNum n={st.index} active={on} />
+                  <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                    <span className="font-mono text-sm font-semibold [overflow-wrap:anywhere]">{shortName(st.name)}</span>
+                    <span className="text-[13px]">{st.type === "model" ? "model call" : "tool call"} · {stepShort(st)}</span>
+                  </span>
+                </button>
+                {i < steps.length - 1 && <span aria-hidden="true" className="ml-[39px] block h-[18px] border-l-4 border-dotted border-ink" />}
+              </li>
+            );
+          })}
+        </ol>
+        <p className="m-0 text-[13px] leading-normal">White chips are model calls, cream chips are tool calls.</p>
+      </aside>
+
+      <section aria-label="Selected step" key={selected} className="rt-fade flex min-w-0 flex-[999_1_560px] flex-col gap-[18px]">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-5 gap-y-2">
+          <h2 className="display m-0 text-[clamp(30px,3vw,42px)]">
+            Step {step.index} · <span className="font-mono text-[0.6em] normal-case">{shortName(step.name)}</span>
+          </h2>
+          <p className="m-0 font-mono text-[13px] leading-normal">{stepMeta(step)}</p>
+        </div>
+        <Panel title="Input" head="bg-sun" note={input.length === 1 ? "1 block" : `${input.length} blocks`}>
+          {input.map((b, i) => <Block key={i} label={b.label} text={b.text} />)}
+        </Panel>
+        <Panel title="Output" head="bg-verm" note={outputNote(step)}>
+          {output.length ? output.map((b, i) => <Block key={i} label={b.label} text={b.text} />) : <p className="m-0 text-sm">Empty output.</p>}
+        </Panel>
+      </section>
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import Link from "next/link";
+import { Anton, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const anton = Anton({ variable: "--font-anton", weight: "400", subsets: ["latin"] });
+const dmSans = DM_Sans({ variable: "--font-dm-sans", subsets: ["latin"] });
+const jetbrains = JetBrains_Mono({ variable: "--font-jetbrains", subsets: ["latin"] });
 
 const DESCRIPTION =
-  "Record every step of an AI agent run, replay it for free, fork it at any step, and diff two runs to find the step where they split.";
+  "Record every step of an AI agent run, replay it, fork it at any step, and diff two runs to find the step where they split.";
 
 export const metadata: Metadata = {
   // Vercel sets this at build time; absolute URLs make the Open Graph image work when the link is shared.
@@ -20,29 +20,14 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-const NAV = "rounded px-2 py-1 text-zinc-400 transition-colors hover:bg-zinc-900 hover:text-zinc-100";
-
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="page-glow min-h-full flex flex-col bg-no-repeat font-sans text-sm">
-        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-10 focus:rounded focus:bg-zinc-900 focus:px-3 focus:py-1">
+    <html lang="en" className={`${anton.variable} ${dmSans.variable} ${jetbrains.variable} antialiased`}>
+      <body className="min-h-full font-sans">
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-10 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:font-bold">
           Skip to content
         </a>
-        <header className="sticky top-0 z-[5] border-b border-zinc-800/80 bg-zinc-950/70 backdrop-blur">
-          <nav aria-label="Main" className="mx-auto flex max-w-6xl items-center gap-1 px-4 py-3 sm:gap-3">
-            <Link href="/" className="mr-2 font-mono text-[15px] font-semibold text-zinc-100">
-              retrace<span className="text-emerald-400">_</span>
-            </Link>
-            <Link href="/#runs" className={NAV}>Runs</Link>
-            <Link href="/results" className={NAV}>Results</Link>
-            <a href="https://github.com/divyamunderconfident/retrace" className={`${NAV} ml-auto`}>GitHub</a>
-          </nav>
-        </header>
-        <main id="main" className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 sm:py-10">{children}</main>
-        <footer className="border-t border-zinc-800/80 px-4 py-5 text-center text-xs text-zinc-500">
-          Read-only viewer of saved runs. Nothing on this site calls a model.
-        </footer>
+        {children}
       </body>
     </html>
   );

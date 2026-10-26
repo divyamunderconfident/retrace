@@ -1,45 +1,91 @@
-const BADGE: Record<string, string> = {
-  model: "bg-sky-950 text-sky-300 ring-sky-800",
-  tool: "bg-violet-950 text-violet-300 ring-violet-800",
-  live: "bg-zinc-900 text-zinc-300 ring-zinc-700",
-  replay: "bg-emerald-950 text-emerald-300 ring-emerald-800",
-  edited: "bg-amber-950 text-amber-300 ring-amber-800",
-  correct: "bg-emerald-950 text-emerald-300 ring-emerald-800",
-  broken: "bg-rose-950 text-rose-300 ring-rose-800",
-};
+import Link from "next/link";
+import { Logo } from "@/components/art";
 
-export function Badge({ children }: { children: string }) {
+export const GITHUB = "https://github.com/divyamunderconfident/retrace";
+export const FREE_TIER_NOTE = "Runs used free API tiers; tokens shown instead of cost.";
+
+export function fmt(n: number) {
+  return n.toLocaleString("en-US");
+}
+
+const NAV = "inline-flex min-h-11 items-center rounded-full px-4 text-[15px] font-bold";
+
+/** Dark header and cream page used by the tool pages (runs, run, diff, results). */
+export function ToolShell({ current, children }: { current?: "runs" | "results"; children: React.ReactNode }) {
+  const tab = (key: "runs" | "results", href: string, label: string) => (
+    <Link
+      href={href}
+      aria-current={current === key ? "page" : undefined}
+      className={`${NAV} ${current === key ? "bg-sun text-ink" : "text-sun hover:bg-white/10"}`}
+    >
+      {label}
+    </Link>
+  );
   return (
-    <span className={`inline-block rounded px-1.5 py-0.5 font-mono text-[11px] ring-1 ring-inset ${BADGE[children] ?? BADGE.live}`}>
-      {children}
+    <>
+      <header className="bg-ink px-[clamp(16px,4vw,56px)] py-3.5 text-sun">
+        <nav aria-label="Main" className="mx-auto flex max-w-[1360px] flex-wrap items-center justify-between gap-x-6 gap-y-3">
+          <Link href="/" className="flex items-center gap-2.5 text-sun no-underline">
+            <Logo size={36} ring="#FFDB8E" />
+            <span className="display text-[26px]">Retrace</span>
+          </Link>
+          <div className="flex flex-wrap items-center gap-1.5">
+            {tab("runs", "/runs", "Runs")}
+            {tab("results", "/results", "Results")}
+            <a href={GITHUB} className={`${NAV} ml-2 border-2 border-sun text-sun hover:bg-white/10`}>GitHub</a>
+          </div>
+        </nav>
+      </header>
+      <main id="main" className="px-[clamp(16px,4vw,56px)] pt-8 pb-16">
+        <div className="mx-auto flex max-w-[1360px] flex-col gap-7">{children}</div>
+      </main>
+    </>
+  );
+}
+
+export function Crumb({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="m-0 text-sm font-bold">
+      <Link href="/runs" className="underline">Runs</Link> <span aria-hidden="true">/</span> {children}
+    </p>
+  );
+}
+
+/** A labelled monospace block for inputs and outputs. */
+export function Block({ label, text, alert = false, className = "" }: { label: string; text: string; alert?: boolean; className?: string }) {
+  return (
+    <div className="flex min-w-0 flex-col gap-1.5">
+      <span className={`max-w-full self-start rounded-full border-2 border-ink px-2.5 py-0.5 text-xs font-bold uppercase tracking-[0.6px] [overflow-wrap:anywhere] ${alert ? "bg-verm" : "bg-white"}`}>
+        {label}
+      </span>
+      <pre className={`m-0 overflow-auto whitespace-pre-wrap rounded-[14px] px-3.5 py-3 font-mono text-[13px] leading-relaxed [overflow-wrap:anywhere] ${alert ? "border-[3px] border-dashed border-verm bg-paper" : "bg-cream"} ${className}`}>
+        {text}
+      </pre>
+    </div>
+  );
+}
+
+export function StepNum({ n, active = false, small = false }: { n: number; active?: boolean; small?: boolean }) {
+  return (
+    <span
+      className={`display flex flex-none items-center justify-center rounded-full ${small ? "h-9 w-9 text-[17px]" : "h-[38px] w-[38px] text-lg"} ${
+        active ? "border-[3px] border-ink bg-verm text-ink" : "bg-ink text-sun"
+      }`}
+    >
+      {n}
     </span>
   );
 }
 
-export function Json({ value, className = "" }: { value: unknown; className?: string }) {
-  const text = typeof value === "string" ? value : JSON.stringify(value, null, 2);
+export function Chip({ children, tone = "sun", mono = false }: { children: React.ReactNode; tone?: "sun" | "white" | "ink" | "paper" | "verm"; mono?: boolean }) {
+  const tones = {
+    sun: "bg-sun",
+    white: "border-2 border-ink bg-white",
+    ink: "bg-ink text-sun",
+    paper: "bg-paper",
+    verm: "bg-verm",
+  };
   return (
-    <pre className={`overflow-auto whitespace-pre-wrap break-words rounded border border-zinc-800 bg-zinc-950 p-3 font-mono text-xs leading-relaxed text-zinc-300 ${className}`}>
-      {text}
-    </pre>
-  );
-}
-
-export function Stat({ label, value, note }: { label: string; value: string; note?: string }) {
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4 transition-colors hover:border-zinc-700">
-      <div className="text-xs uppercase tracking-wide text-zinc-500">{label}</div>
-      <div className="mt-1 font-mono text-2xl text-zinc-100">{value}</div>
-      {note && <div className="mt-1 text-xs text-zinc-400">{note}</div>}
-    </div>
-  );
-}
-
-export function H1({ children, sub }: { children: React.ReactNode; sub?: React.ReactNode }) {
-  return (
-    <div className="rise mb-6">
-      <h1 className="text-xl font-semibold tracking-tight text-zinc-50 sm:text-2xl">{children}</h1>
-      {sub && <p className="mt-1 text-zinc-400">{sub}</p>}
-    </div>
+    <span className={`rounded-full px-3.5 py-1.5 text-sm ${mono ? "font-mono text-[13px]" : "font-bold"} ${tones[tone]}`}>{children}</span>
   );
 }

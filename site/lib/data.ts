@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 
 // Read at build time only; the exported site is static and never calls a model.
@@ -6,6 +6,11 @@ const DATA_DIR = path.join(process.cwd(), "public", "data");
 
 export function readData<T>(file: string): T {
   return JSON.parse(readFileSync(path.join(DATA_DIR, file), "utf-8")) as T;
+}
+
+/** A run's steps, or null when its file is not in the export. */
+export function readRun(id: string): Run | null {
+  return existsSync(path.join(DATA_DIR, "runs", `${id}.json`)) ? readData<Run>(`runs/${id}.json`) : null;
 }
 
 export type Step = {
@@ -26,11 +31,15 @@ export type RunMeta = {
   label: string;
   role: "correct" | "broken";
   mutation: string;
+  type: string;
   question: string;
   model: string;
-  steps: number;
+  steps: number | null; // null when the run's step file is not exported (summary only)
   tokens: number;
   answer: string;
+  stopped: boolean;
+  has_file: boolean;
+  diff: string | null;
 };
 
 export type DiffMeta = {
@@ -68,10 +77,16 @@ export type Results = {
   mutations: {
     id: string;
     type: string;
+    question: string;
     description: string;
+    correct_run: string;
+    broken_run: string;
     mutated_step: number | null;
     first_divergence: number | null;
+    divergence_kind: string | null;
     match: boolean;
+    tokens_correct: number;
+    tokens_broken: number;
   }[];
   root_cause: {
     id: string;

@@ -1,68 +1,86 @@
-import { H1, Stat } from "@/components/ui";
+import { ToolShell } from "@/components/ui";
 import { readData, type Results } from "@/lib/data";
 
-function Mark({ ok }: { ok: boolean }) {
-  return <span className={ok ? "text-emerald-400" : "text-rose-400"}>{ok ? "yes" : "no"}</span>;
-}
-
 export const metadata = { title: "Results" };
+
+function Mark({ ok }: { ok: boolean }) {
+  return (
+    <span className={`inline-flex rounded-full px-3 py-0.5 text-[13px] font-bold ${ok ? "border-2 border-ink bg-white" : "bg-verm"}`}>
+      {ok ? "yes" : "no"}
+    </span>
+  );
+}
 
 export default function ResultsPage() {
   const { summary: s, mutations, root_cause } = readData<Results>("results.json");
   const b = Object.fromEntries(root_cause.map((r) => [r.id, r]));
   const n = Number(s.b_scored);
-  return (
-    <>
-      <H1 sub={`Small mutation experiment: ${s.mutations} seeded bugs in the demo agent, 2 for each of 5 bug types, one trial each. Numbers come from results/ in the repo.`}>
-        Results
-      </H1>
+  const targetMet = Number(s.b_diff_report_correct) >= 2 * Number(s.b_raw_logs_correct);
+  const stats = [
+    { value: `${s.a_matches}/${s.fired}`, label: "diff's first divergence was the mutated step", tone: "bg-ink text-sun", sub: "text-white" },
+    { value: `${s.b_raw_logs_correct}/${n}`, label: `root cause from raw JSON logs (step right ${s.b_raw_logs_step_correct}, type right ${s.b_raw_logs_type_correct})`, tone: "bg-white border-[3px] border-ink", sub: "" },
+    { value: `${s.b_diff_report_correct}/${n}`, label: `root cause from the diff report (step right ${s.b_diff_report_step_correct}, type right ${s.b_diff_report_type_correct})`, tone: "bg-sun", sub: "" },
+  ];
 
-      <div className="mb-6 grid gap-3 md:grid-cols-3">
-        <Stat label="A · diff finds the mutated step" value={`${s.a_matches} / ${s.fired}`}
-              note="First divergence equals the step the mutation first changed." />
-        <Stat label="B · root cause from raw JSON logs" value={`${s.b_raw_logs_correct} / ${n}`}
-              note={`Step right ${s.b_raw_logs_step_correct}, bug type right ${s.b_raw_logs_type_correct}.`} />
-        <Stat label="B · root cause from diff report" value={`${s.b_diff_report_correct} / ${n}`}
-              note={`Step right ${s.b_diff_report_step_correct}, bug type right ${s.b_diff_report_type_correct}.`} />
+  return (
+    <ToolShell current="results">
+      <div className="rt-fade flex flex-col gap-2.5">
+        <p className="m-0 font-mono text-[13px]">small mutation experiment</p>
+        <h1 className="display m-0 text-[clamp(48px,5vw,72px)] leading-[0.95]">Results</h1>
+        <p className="m-0 max-w-[70ch] text-[17px] leading-normal">
+          {s.mutations} seeded bugs in the demo agent, 2 for each of 5 bug types, one trial each. Numbers come from
+          results/ in the repo.
+        </p>
       </div>
 
-      <p className="mb-6 max-w-3xl text-zinc-400">
-        Analyst model: <span className="font-mono">{s.analyst_model}</span>. Agent model:{" "}
-        <span className="font-mono">{s.agent_model}</span>. A root cause counts only if both the step and the bug type
-        match the mutation log. The PRD target of the diff report being right twice as often as raw logs was{" "}
-        {Number(s.b_diff_report_correct) >= 2 * Number(s.b_raw_logs_correct) ? "met" : "not met"}: the demo runs are
-        short, so the raw logs are easy to read whole. Steps before each mutation are identical by construction (cached
-        model calls), which makes A easier than it would be with a live, varying model.
+      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-4">
+        {stats.map((st) => (
+          <div key={st.label} className={`rt-lift flex flex-col gap-2 rounded-[30px] px-7 py-6 ${st.tone}`}>
+            <span className="display text-[clamp(64px,7vw,96px)] leading-[0.9]">{st.value}</span>
+            <span className={`text-[15px] leading-snug ${st.sub}`}>{st.label}</span>
+          </div>
+        ))}
+      </div>
+
+      <p className="m-0 max-w-[80ch] text-[15px] leading-relaxed">
+        Analyst model: <code className="rounded-md bg-paper px-1.5 font-mono text-[13px]">{s.analyst_model}</code>. Agent model:{" "}
+        <code className="rounded-md bg-paper px-1.5 font-mono text-[13px]">{s.agent_model}</code>. A root cause counts only if both the
+        step and the bug type match the mutation log. The PRD target of the diff report being right twice as often as raw
+        logs was <strong>{targetMet ? "met" : "not met"}</strong>: the demo runs are short, so the raw logs are easy to read whole.
+        Steps before each mutation are identical by construction (cached model calls), which makes A easier than it would
+        be with a live, varying model.
       </p>
 
-      <div className="overflow-x-auto rounded border border-zinc-800">
-        <table className="w-full text-left">
-          <thead className="bg-zinc-900 text-xs text-zinc-400">
-            <tr>
-              <th className="px-3 py-2">Mutation</th>
-              <th className="px-3 py-2">Type</th>
-              <th className="px-3 py-2">Mutated step</th>
-              <th className="px-3 py-2">First divergence</th>
-              <th className="px-3 py-2">A</th>
-              <th className="px-3 py-2">B raw logs</th>
-              <th className="px-3 py-2">B diff report</th>
-            </tr>
-          </thead>
-          <tbody>
-            {mutations.map((m) => (
-              <tr key={m.id} className="border-t border-zinc-800 hover:bg-zinc-900/60" title={m.description}>
-                <td className="px-3 py-2 font-mono">{m.id}</td>
-                <td className="px-3 py-2 text-zinc-300">{m.type}</td>
-                <td className="px-3 py-2 font-mono">{m.mutated_step ?? "-"}</td>
-                <td className="px-3 py-2 font-mono">{m.first_divergence ?? "-"}</td>
-                <td className="px-3 py-2"><Mark ok={m.match} /></td>
-                <td className="px-3 py-2">{b[m.id] ? <Mark ok={b[m.id].raw_logs.correct} /> : "-"}</td>
-                <td className="px-3 py-2">{b[m.id] ? <Mark ok={b[m.id].diff_report.correct} /> : "-"}</td>
+      <div className="overflow-hidden rounded-[28px] border-[3px] border-ink bg-white">
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[760px] border-collapse text-[15px]">
+            <thead>
+              <tr className="bg-ink text-left text-[13px] uppercase tracking-[0.6px] text-sun">
+                <th scope="col" className="px-5 py-3.5">Mutation</th>
+                <th scope="col" className="px-3 py-3.5">Type</th>
+                <th scope="col" className="px-3 py-3.5 text-right">Mutated step</th>
+                <th scope="col" className="px-3 py-3.5 text-right">First divergence</th>
+                <th scope="col" className="px-3 py-3.5">A</th>
+                <th scope="col" className="px-3 py-3.5">B raw logs</th>
+                <th scope="col" className="px-3 py-3.5 pr-5">B diff report</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {mutations.map((m) => (
+                <tr key={m.id} title={m.description} className="border-t-2 border-rule hover:bg-paper">
+                  <td className="px-5 py-3 font-mono text-[13px]">{m.id}</td>
+                  <td className="px-3 py-3">{m.type}</td>
+                  <td className="px-3 py-3 text-right tabular-nums">{m.mutated_step ?? "—"}</td>
+                  <td className="px-3 py-3 text-right tabular-nums">{m.first_divergence ?? "—"}</td>
+                  <td className="px-3 py-3"><Mark ok={m.match} /></td>
+                  <td className="px-3 py-3">{b[m.id] ? <Mark ok={b[m.id].raw_logs.correct} /> : "—"}</td>
+                  <td className="px-3 py-3 pr-5">{b[m.id] ? <Mark ok={b[m.id].diff_report.correct} /> : "—"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </>
+    </ToolShell>
   );
 }
