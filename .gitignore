@@ -9,3 +9,4 @@ site/.next/
 site/out/
 .venv/
 examples/research_agent/notes.md
+.superpowers/
